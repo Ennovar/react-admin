@@ -3,3 +3,12 @@ export default class SomeClass {
     console.log("Hello World");
   }
 }
+
+import { createStore } from 'redux'
+import AdminReducer from './reducers/AdminReducer';
+
+let store = createStore(AdminReducer)
+
+export {
+  store,
+};

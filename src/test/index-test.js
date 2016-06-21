@@ -1,8 +1,24 @@
 import expect from 'expect';
-import SomeClass from '../';
+import ItemList from '../components/ItemList';
+import BooleanField from '../components/BooleanField';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { store } from '../index';
+import { Provider } from 'react-redux';
 
-describe("SomeClass", () => {
-  it("should call someFunction()", () => {
-    SomeClass.someFunction();
-  })
+describe("ItemList", () => {
+  it("should render", () => {
+    ReactDOM.render(
+      <Provider store={store} key="provider">
+        <BooleanField />
+    </Provider>
+    ,
+      document.body
+    );
+  });
+})
+
+describe("BooleanField", () => {
+  it("should render", () => {
+  });
 })
