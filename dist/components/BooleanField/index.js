@@ -16,9 +16,7 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _style = require('./style.css');
-
-var _style2 = _interopRequireDefault(_style);
+require('./style.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29,7 +27,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // Add bootstrap
-require('bootstrap-loader');
 
 var BooleanField = function (_React$Component) {
   _inherits(BooleanField, _React$Component);
@@ -42,6 +39,8 @@ var BooleanField = function (_React$Component) {
     _this.state = {
       value: false
     };
+
+    _this.changeBoolean = _this.changeBoolean.bind(_this);
     return _this;
   }
 
@@ -49,7 +48,7 @@ var BooleanField = function (_React$Component) {
     key: 'changeBoolean',
     value: function changeBoolean() {
       this.setState({
-        value: this.state.value ? false : true
+        value: !this.state.value
       });
     }
   }, {
@@ -60,7 +59,7 @@ var BooleanField = function (_React$Component) {
         null,
         _react2.default.createElement(
           'button',
-          { className: "btn btn-default", onClick: this.changeBoolean.bind(this) },
+          { className: "btn btn-default", onClick: this.changeBoolean },
           this.state.value ? 'True' : 'False'
         )
       );

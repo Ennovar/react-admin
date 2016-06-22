@@ -1,5 +1,5 @@
 export function doSomething() {
-  console.log("something happened");
+  console.log('something happened');
   return {
     type: 'SOME_TYPE',
   };
