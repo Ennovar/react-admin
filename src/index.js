@@ -1,13 +1,10 @@
-export default class SomeClass {
-  static someFunction() {
-    console.log("Hello World");
-  }
-}
-
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 import AdminReducer from './reducers/AdminReducer';
+const initialState = {};
 
-let store = createStore(AdminReducer)
+const store = createStore(AdminReducer, initialState,
+      window.devToolsExtension && window.devToolsExtension()
+);
 
 export {
   store,

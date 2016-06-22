@@ -1,24 +1,20 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.store = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _redux = require('redux');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _AdminReducer = require('./reducers/AdminReducer');
 
-var SomeClass = exports.SomeClass = function () {
-  function SomeClass() {
-    _classCallCheck(this, SomeClass);
-  }
+var _AdminReducer2 = _interopRequireDefault(_AdminReducer);
 
-  _createClass(SomeClass, null, [{
-    key: "someFunction",
-    value: function someFunction() {
-      console.log("Hello World");
-    }
-  }]);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  return SomeClass;
-}();
+var initialState = {};
+
+var store = (0, _redux.createStore)(_AdminReducer2.default, initialState, window.devToolsExtension && window.devToolsExtension());
+
+exports.store = store;

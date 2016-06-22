@@ -13,6 +13,7 @@ module.exports = function (config) {
     reporters: [ 'dots' ], //report results in this format
     webpack: { //kind of a copy of your webpack config
       devtool: 'inline-source-map', //just do inline source maps instead of the default
+      entry: ['bootstrap-loader'],
       module: {
         loaders: [
           {
@@ -21,8 +22,34 @@ module.exports = function (config) {
             exclude: /node_modules/,
             query: {
               presets: ['es2015', 'react']
-            }
-           }
+            },
+          },
+          {
+              test: /\.css$/,
+              loaders: [
+                  'style?sourceMap',
+                  'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+              ]
+          },
+          { test: /\.png$/, loader: 'url-loader?limit=100000' },
+          { test: /\.jpg$/, loader: 'file-loader' },
+          {
+            test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: "url?limit=10000"
+          },
+          {
+            test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+            loader: 'file'
+          },
+
+          // // Use one of these to serve jQuery for Bootstrap scripts:
+          //
+          // // Bootstrap 4
+          // { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+          //
+          // Bootstrap 3
+          { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
+
         ]
       }
     },
