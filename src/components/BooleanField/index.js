@@ -1,14 +1,12 @@
 // Libary imports
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import 'bootstrap-loader';
 
 // User imports
-import { doSomething } from '../../actions/admin_actions';
 import './style.scss';
 
 class BooleanField extends Component {
+
+  // Constructor
   constructor(props) {
     super(props);
 
@@ -16,29 +14,53 @@ class BooleanField extends Component {
       value: false,
     };
 
-    this.changeBoolean = this.changeBoolean.bind(this);
+    this.onClickTrue = this.onClickTrue.bind(this);
+    this.onClickFalse = this.onClickFalse.bind(this);
   }
 
-  changeBoolean() {
-    this.setState({
-      value: !this.state.value,
-    });
+  // User selects false
+  onClickTrue() {
+    this.setState({ value: true });
+  }
+
+  // User selects True
+  onClickFalse() {
+    this.setState({ value: false });
   }
 
   // Render method
   render() {
+    let btnT = 'default';
+    let btnF = 'default';
+
+    if (this.state.value) {
+      btnT = 'primary';
+    } else {
+      btnF = 'primary';
+    }
+
     return (
-      <div>
-        <button className="btn btn-default" onClick={this.changeBoolean}>
-          {this.state.value ? 'True' : 'False'}
-        </button>
-      </div>
+      <li className="list-group-item">
+        <ul id="field" className="list-group">
+          <li className="list-group-item">
+            <h3 className="list-group-item-heading">{this.props.title}</h3>
+          </li>
+          <li className="list-group-item">
+            <button className={`btn btn-${btnT}`} onClick={this.onClickTrue}>
+              True
+            </button>
+            <button className={`btn btn-${btnF}`} onClick={this.onClickFalse}>
+              False
+            </button>
+          </li>
+        </ul>
+      </li>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething }, dispatch);
-}
+BooleanField.propTypes = {
+  title: React.PropTypes.string.isRequired,
+};
 
-export default connect(null, mapDispatchToProps)(BooleanField);
+export default BooleanField;
