@@ -1,0 +1,18 @@
+
+#field {
+  margin-bottom: 0px;
+
+  li {
+
+    &:first-of-type {
+      background-color: #ccc;
+    }
+  }
+}
+
+#select {
+
+  &:hover {
+    background-color: #ddd;
+  }
+}

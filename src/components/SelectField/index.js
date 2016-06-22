@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 // User imports
+import Select from '../Select';
 import './style.scss';
 
 class SelectField extends Component {
@@ -23,24 +24,14 @@ class SelectField extends Component {
           <li className="list-group-item">
             <h3 className="list-group-item-heading">{this.props.title}</h3>
           </li>
-          <li className="list-group-item">
-            Item
-          </li>
-          <li className="list-group-item">
-            Item
-          </li>
-          <li className="list-group-item">
-            Item
-          </li>
-          <li className="list-group-item">
-            Item
-          </li>
-          <li className="list-group-item">
-            Item
-          </li>
-          <li className="list-group-item">
-            Item
-          </li>
+          <Select title={'Item 1'} />
+          <Select title={'Item 2'} />
+          <Select title={'Item 3'} />
+          <Select title={'Item 4'} />
+          <Select title={'Item 5'} />
+          <Select title={'Item 6'} />
+          <Select title={'Item 7'} />
+          <Select title={'Item 8'} />
         </ul>
       </li>
     );

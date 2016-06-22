@@ -1,11 +1,15 @@
 
 #field {
   margin-bottom: 0px;
-  
+
   li {
 
     &:first-of-type {
-      background-color: #ccc;
+      background-color: @brand-primary;
     }
   }
+}
+
+#save {
+  float: right;
 }

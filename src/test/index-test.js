@@ -1,6 +1,6 @@
 // import expect from 'expect';
 // import ItemList from '../components/ItemList';
-import AdminNew from '../components/AdminNew';
+import Admin from '../containers/Admin';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { store } from '../index';
@@ -11,7 +11,7 @@ describe('ItemList', () => {
   it('should render', () => {
     ReactDOM.render(
       <Provider store={store} key="provider">
-        <AdminNew />
+        <Admin />
       </Provider>,
       document.body);
   });
