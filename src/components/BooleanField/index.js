@@ -6,7 +6,7 @@ import 'bootstrap-loader';
 
 // User imports
 import { doSomething } from '../../actions/admin_actions';
-import './style.css';
+import './style.scss';
 
 class BooleanField extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class BooleanField extends Component {
       value: !this.state.value,
     });
   }
-  
+
   // Render method
   render() {
     return (

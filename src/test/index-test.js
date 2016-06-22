@@ -11,9 +11,7 @@ describe('ItemList', () => {
     ReactDOM.render(
       <Provider store={store} key="provider">
         <BooleanField />
-      </Provider>
-    ,
-      document.body
-    );
+      </Provider>,
+      document.body);
   });
 });
