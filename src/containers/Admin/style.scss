@@ -1,0 +1,35 @@
+
+#field {
+  margin-bottom: 0px;
+
+  li {
+
+    &:first-of-type {
+      background-color: #ccc;
+    }
+  }
+}
+
+#select {
+
+  &:hover {
+
+    &:not(.active) {
+      background-color: #ddd;
+    }
+  }
+
+  i {
+    color: white;
+    font-size: 16px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    float: right;
+  }
+
+  &:not(.active) {
+    i {
+      color: #337ab7;
+    }
+  }
+}
