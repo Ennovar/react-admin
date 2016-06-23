@@ -20,6 +20,7 @@ class Models extends Component {
     };
 
     this.onSelect = this.onSelect.bind(this);
+    this.onClickNew = this.onClickNew.bind(this);
   }
 
   componentWillMount() {
@@ -28,6 +29,10 @@ class Models extends Component {
 
   onSelect(index) {
     this.props.changeSelection(index);
+  }
+
+  onClickNew(e) {
+    console.log(e.target.className);
   }
 
   // Render method
@@ -56,6 +61,7 @@ class Models extends Component {
               onClick={() => this.onSelect(index)}
             >
               {model.title}
+              <i className="fa fa-plus" onClick={this.onClickNew}></i>
             </li>
           );
         })}

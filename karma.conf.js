@@ -44,7 +44,7 @@ module.exports = function (config) {
             loader: 'url?limit=10000',
           },
           {
-            test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: 'file',
           },
 

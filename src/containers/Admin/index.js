@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'bootstrap-loader';
+import 'font-awesome-sass-loader';
 
 // User imports
 import { doSomething } from '../../actions/admin_actions';
