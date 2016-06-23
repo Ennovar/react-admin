@@ -1,8 +1,7 @@
 import { createStore } from 'redux';
 import AdminReducer from './reducers/AdminReducer';
-const initialState = {};
 
-const store = createStore(AdminReducer, initialState,
+const store = createStore(AdminReducer,
       window.devToolsExtension && window.devToolsExtension()
 );
 
