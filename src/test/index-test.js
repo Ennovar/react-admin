@@ -8,17 +8,12 @@ import { Provider } from 'react-redux';
 
 describe("ItemList", () => {
   it("should render", () => {
-    ReactDOM.render(
-      <Provider store={store} key="provider">
-        <BooleanField />
-    </Provider>
-    ,
-      document.body
-    );
-  });
-})
-
-describe("BooleanField", () => {
-  it("should render", () => {
+    // ReactDOM.render(
+    //   <Provider store={store} key="provider">
+    //     <BooleanField />
+    // </Provider>
+    // ,
+    //   document.body
+    // );
   });
 })
