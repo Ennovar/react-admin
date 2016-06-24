@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "starting point",
   "homepage": "https://github.com/AustinMCrane/npmboilerplate#readme",
-  "main": "distribution/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "karma start",
     "build": "babel --presets es2015,stage-0 -d dist/ src/",
