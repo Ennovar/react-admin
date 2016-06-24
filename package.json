@@ -6,7 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "karma start",
-    "build": "babel --presets es2015,stage-0 -d dist/ src/",
+    "build": "npm run build-js && npm run build-scss",
+    "build-js": "babel --presets es2015,stage-0 -d dist/ src/",
+    "build-scss": "node-sass --output-style compressed -o dist/ src/",
     "prepublish": "npm run build"
   },
   "keywords": [

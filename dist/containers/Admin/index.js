@@ -28,7 +28,7 @@ var _Models = require('../Models');
 
 var _Models2 = _interopRequireDefault(_Models);
 
-require('./style.scss');
+require('./style.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

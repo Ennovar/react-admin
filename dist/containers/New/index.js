@@ -28,7 +28,7 @@ var _SelectField = require('../../components/SelectField');
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-require('./style.scss');
+require('./style.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
