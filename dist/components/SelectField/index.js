@@ -14,7 +14,7 @@ var _Select = require('../Select');
 
 var _Select2 = _interopRequireDefault(_Select);
 
-require('./style.scss');
+require('./style.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

@@ -16,7 +16,7 @@ var _redux = require('redux');
 
 var _admin_actions = require('../../actions/admin_actions');
 
-require('./style.scss');
+require('./style.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
