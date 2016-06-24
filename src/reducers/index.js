@@ -2,7 +2,7 @@ const initialState = {
   selected: 0,
 };
 
-export default function reducer(state = initialState, action) {
+export function reducer(state = initialState, action) {
   console.log(action);
   switch (action.type) {
     case 'CHANGE_SELECTION':
