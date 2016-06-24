@@ -72,15 +72,29 @@ var New = function (_Component) {
         null,
         _react2.default.createElement(
           'ul',
-          { className: 'list-group' },
+          { id: 'field', className: 'list-group' },
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            _react2.default.createElement(
+              'h3',
+              { className: 'list-group-item-heading text-center' },
+              'New ',
+              this.props.selected
+            )
+          ),
           _react2.default.createElement(_BooleanField2.default, { title: 'Property 1' }),
           _react2.default.createElement(_InputField2.default, { title: 'Property 2', type: 'string' }),
-          _react2.default.createElement(_SelectField2.default, { title: 'Property 3' })
-        ),
-        _react2.default.createElement(
-          'button',
-          { id: 'save', className: 'btn btn-primary' },
-          'Save'
+          _react2.default.createElement(_SelectField2.default, { title: 'Property 3' }),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item clearfix' },
+            _react2.default.createElement(
+              'button',
+              { id: 'save', className: 'btn btn-primary' },
+              'Save'
+            )
+          )
         )
       );
     }
@@ -89,8 +103,18 @@ var New = function (_Component) {
   return New;
 }(_react.Component);
 
+New.propTypes = {
+  selected: _react2.default.PropTypes.string
+};
+
+function mapStatetoProps(state) {
+  return {
+    selected: state.selected
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({ doSomething: _admin_actions.doSomething }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(New);
+exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(New);

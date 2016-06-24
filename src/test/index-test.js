@@ -8,11 +8,11 @@ import { Provider } from 'react-redux';
 import 'bootstrap-loader';
 
 describe('ItemList', () => {
-  const router = routerObject()
-  beforeEach() {
-    //setup our router
-    render(router)
-  }
+  // const router = routerObject()
+  // beforeEach() {
+  //   //setup our router
+  //   render(router)
+  // }
   it('should render', () => {
     ReactDOM.render(
       <Provider store={store} key="provider">

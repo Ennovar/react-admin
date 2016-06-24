@@ -88,7 +88,7 @@ var Models = function (_Component) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'h3',
-            { className: 'list-group-item-heading' },
+            { className: 'list-group-item-heading text-center' },
             'Models'
           )
         ),
@@ -108,8 +108,8 @@ var Models = function (_Component) {
                 return _this2.onSelect(index);
               }
             },
-            model.title,
-            _react2.default.createElement('i', { className: 'fa fa-plus', onClick: _this2.onClickNew })
+            _react2.default.createElement('i', { className: 'fa fa-plus fa-fw', onClick: _this2.onClickNew }),
+            model.title
           );
         })
       );

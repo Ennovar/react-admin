@@ -55,6 +55,8 @@ var Items = function (_Component) {
   _createClass(Items, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var items = this.props.items;
 
 
@@ -66,7 +68,7 @@ var Items = function (_Component) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'h3',
-            { className: 'list-group-item-heading' },
+            { className: 'list-group-item-heading text-center' },
             items.title || 'Title'
           )
         ),
@@ -74,6 +76,7 @@ var Items = function (_Component) {
           return _react2.default.createElement(
             'li',
             { id: 'select', key: item.id, className: 'list-group-item' },
+            _react2.default.createElement('i', { className: 'fa fa-pencil fa-fw', onClick: _this2.onClickNew }),
             item.title
           );
         })

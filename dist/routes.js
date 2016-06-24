@@ -10,7 +10,19 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-require('./style.scss');
+var _reactRouter = require('react-router');
+
+var _Admin = require('./containers/Admin');
+
+var _Admin2 = _interopRequireDefault(_Admin);
+
+var _Items = require('./containers/Items');
+
+var _Items2 = _interopRequireDefault(_Items);
+
+var _New = require('./containers/New');
+
+var _New2 = _interopRequireDefault(_New);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,81 +36,39 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // User imports
 
 
-var InputField = function (_Component) {
-  _inherits(InputField, _Component);
+var SomeComponent = function (_React$Component) {
+  _inherits(SomeComponent, _React$Component);
 
-  // Constructor
+  function SomeComponent() {
+    _classCallCheck(this, SomeComponent);
 
-  function InputField(props) {
-    _classCallCheck(this, InputField);
-
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InputField).call(this, props));
-
-    _this.state = {
-      value: ''
-    };
-
-    _this.onInputChange = _this.onInputChange.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SomeComponent).apply(this, arguments));
   }
 
-  _createClass(InputField, [{
-    key: 'onInputChange',
-    value: function onInputChange(e) {
-      // String is temporary, will be in props later
-      var value = e.target.value;
-
-      if (this.props.type === 'number') {
-        if (!isNaN(parseFloat(value)) && isFinite(value) && value >= 0) {
-          this.setState({ value: e.target.value });
-        } else if (value === '') {
-          this.setState({ value: e.target.value });
-        }
-      } else {
-        this.setState({ value: e.target.value });
-      }
-    }
-
-    // Render method
-
-  }, {
+  _createClass(SomeComponent, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'li',
-        { className: 'list-group-item' },
+        'div',
+        null,
         _react2.default.createElement(
-          'ul',
-          { id: 'field', className: 'list-group' },
-          _react2.default.createElement(
-            'li',
-            { className: 'list-group-item' },
-            _react2.default.createElement(
-              'h3',
-              { className: 'list-group-item-heading' },
-              this.props.title
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'list-group-item' },
-            _react2.default.createElement('input', {
-              className: 'form-control',
-              value: this.state.value,
-              onChange: this.onInputChange
-            })
-          )
+          'h4',
+          null,
+          'Hello Admin'
         )
       );
     }
   }]);
 
-  return InputField;
-}(_react.Component);
+  return SomeComponent;
+}(_react2.default.Component);
 
-InputField.propTypes = {
-  title: _react2.default.PropTypes.string.isRequired,
-  type: _react2.default.PropTypes.string.isRequired
-};
-
-exports.default = InputField;
+exports.default = _react2.default.createElement(
+  _reactRouter.Route,
+  { path: '/', component: _Admin2.default },
+  _react2.default.createElement(_reactRouter.IndexRoute, { component: SomeComponent }),
+  _react2.default.createElement(_reactRouter.Route, { path: ':model', component: _Items2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: ':model/new', component: _New2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: ':model/edit', component: _New2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: ':model/:id', component: _New2.default })
+);

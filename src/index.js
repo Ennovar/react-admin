@@ -13,12 +13,7 @@ const store = createStoreWithMiddleware(reducer,
   window.devToolsExtension && window.devToolsExtension()
 );
 
-const App = () => (
-  <Router history={browserHistory} routes={routes} />
-);
-
-
-export {
-  store,
-  App,
-};
+// export default const App = () => (
+//   <Router history={browserHistory} routes={routes} />
+// );
+export default routes
