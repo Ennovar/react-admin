@@ -41,7 +41,11 @@ class InputField extends Component {
             <h3 className="list-group-item-heading">{this.props.title}</h3>
           </li>
           <li className="list-group-item">
-            <input value={this.state.value} onChange={this.onInputChange} />
+            <input
+              className="form-control"
+              value={this.state.value}
+              onChange={this.onInputChange}
+            />
           </li>
         </ul>
       </li>

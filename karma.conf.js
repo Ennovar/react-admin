@@ -35,7 +35,7 @@ module.exports = function (config) {
           },
           {
             test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
+            loaders: ['style', 'css', 'sass'],
           },
           { test: /\.png$/, loader: 'url-loader?limit=100000' },
           { test: /\.jpg$/, loader: 'file-loader' },

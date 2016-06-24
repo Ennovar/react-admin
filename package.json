@@ -1,5 +1,5 @@
 {
-  "name": "npmboilerplate",
+  "name": "react-admin",
   "version": "1.0.0",
   "description": "starting point",
   "homepage": "https://github.com/AustinMCrane/npmboilerplate#readme",
@@ -38,6 +38,7 @@
     "react-addons": "^0.9.1-deprecated",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.5.0",
     "redux": "^3.5.2"
   },
   "devDependencies": {

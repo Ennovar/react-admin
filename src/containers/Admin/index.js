@@ -9,23 +9,85 @@ import 'font-awesome-sass-loader';
 import { doSomething } from '../../actions/admin_actions';
 
 // Components
-// import New from '../New';
+import New from '../New';
 import Models from '../Models';
-import Items from '../Items';
+// import Items from '../Items';
+/*
+// Query Sidebar options
+
+{
+  models: [
+    {
+      title: 'Cars',
+      crud: {
+        create: 'url to POST to to create a car',
+        index: 'url to GET all cars',
+        show: 'url to GET a specific car EXAMPLE: http://bobscars.com/api/cars/:id with id being a convention to get the car with that id',
+        update: 'url to PUT an update to a specific car while following the same conventions as #show ^^',
+        delete: 'url to DELETE a specific car with the id convention above ^^^',
+        new: 'url///'
+      }
+    },
+    {
+      ect...
+    }
+  ]
+}
+// New Model 
+{
+title: 'Hard Drives',
+  attributes: {
+    base_frequency: {
+    type: 'string',
+    readable_title: 'Base Frequency',
+    }
+  }
+}
+*/
 import './style.scss';
 
 const models = [
   {
-    title: 'Model 1',
+    title: 'Boot Drives',
     id: 1,
     data: [
       {
-        title: 'Item 1',
+        title: '500GB 7K RPM',
         id: 1,
+        capacity: 500,
+        rpm: 7,
+        connection_type: 'SATA',
+        io: 6,
+        solid_state: false,
+        phy_size: 2.5,
+      }, {
+        title: '500GB 7K RPM',
+        id: 2,
+      }, {
+        title: '300GB 15K RPM',
+        id: 3,
+      }, {
+        title: '600GB 15K RPM',
+        id: 4,
+      }, {
+        title: '300GB 10K RPM',
+        id: 5,
+      }, {
+        title: '600GB 10K RPM',
+        id: 6,
+      }, {
+        title: '1200GB 150 RPM',
+        id: 7,
+      }, {
+        title: '200GB 10K RPM',
+        id: 8,
+      }, {
+        title: '400GB 10K RPM',
+        id: 9,
       },
     ],
   }, {
-    title: 'Model 2',
+    title: 'Cables',
     id: 2,
     data: [
       {
@@ -38,7 +100,7 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 3',
+    title: 'CPUs',
     id: 3,
     data: [
       {
@@ -55,7 +117,7 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 4',
+    title: 'IOPS',
     id: 4,
     data: [
       {
@@ -76,7 +138,7 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 5',
+    title: 'Operating Systems',
     id: 5,
     data: [
       {
@@ -101,7 +163,7 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 6',
+    title: 'Memories',
     id: 6,
     data: [
       {
@@ -130,7 +192,7 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 7',
+    title: 'Raid Controllers',
     id: 7,
     data: [
       {
@@ -163,7 +225,192 @@ const models = [
       },
     ],
   }, {
-    title: 'Model 8',
+    title: 'Resiliencies',
+    id: 8,
+    data: [
+      {
+        title: 'Item 1',
+        id: 1,
+      },
+      {
+        title: 'Item 2',
+        id: 2,
+      },
+      {
+        title: 'Item 3',
+        id: 3,
+      },
+      {
+        title: 'Item 4',
+        id: 4,
+      },
+      {
+        title: 'Item 5',
+        id: 5,
+      },
+      {
+        title: 'Item 6',
+        id: 6,
+      },
+      {
+        title: 'Item 7',
+        id: 7,
+      },
+      {
+        title: 'Item 8',
+        id: 8,
+      },
+    ],
+  }, {
+    title: 'SAS Host Adapters',
+    id: 8,
+    data: [
+      {
+        title: 'Item 1',
+        id: 1,
+      },
+      {
+        title: 'Item 2',
+        id: 2,
+      },
+      {
+        title: 'Item 3',
+        id: 3,
+      },
+      {
+        title: 'Item 4',
+        id: 4,
+      },
+      {
+        title: 'Item 5',
+        id: 5,
+      },
+      {
+        title: 'Item 6',
+        id: 6,
+      },
+      {
+        title: 'Item 7',
+        id: 7,
+      },
+      {
+        title: 'Item 8',
+        id: 8,
+      },
+    ],
+  }, {
+    title: 'Servers',
+    id: 8,
+    data: [
+      {
+        title: 'Item 1',
+        id: 1,
+      },
+      {
+        title: 'Item 2',
+        id: 2,
+      },
+      {
+        title: 'Item 3',
+        id: 3,
+      },
+      {
+        title: 'Item 4',
+        id: 4,
+      },
+      {
+        title: 'Item 5',
+        id: 5,
+      },
+      {
+        title: 'Item 6',
+        id: 6,
+      },
+      {
+        title: 'Item 7',
+        id: 7,
+      },
+      {
+        title: 'Item 8',
+        id: 8,
+      },
+    ],
+  }, {
+    title: 'Storage Drives',
+    id: 8,
+    data: [
+      {
+        title: 'Item 1',
+        id: 1,
+      },
+      {
+        title: 'Item 2',
+        id: 2,
+      },
+      {
+        title: 'Item 3',
+        id: 3,
+      },
+      {
+        title: 'Item 4',
+        id: 4,
+      },
+      {
+        title: 'Item 5',
+        id: 5,
+      },
+      {
+        title: 'Item 6',
+        id: 6,
+      },
+      {
+        title: 'Item 7',
+        id: 7,
+      },
+      {
+        title: 'Item 8',
+        id: 8,
+      },
+    ],
+  }, {
+    title: 'Storage Enclosures',
+    id: 8,
+    data: [
+      {
+        title: 'Item 1',
+        id: 1,
+      },
+      {
+        title: 'Item 2',
+        id: 2,
+      },
+      {
+        title: 'Item 3',
+        id: 3,
+      },
+      {
+        title: 'Item 4',
+        id: 4,
+      },
+      {
+        title: 'Item 5',
+        id: 5,
+      },
+      {
+        title: 'Item 6',
+        id: 6,
+      },
+      {
+        title: 'Item 7',
+        id: 7,
+      },
+      {
+        title: 'Item 8',
+        id: 8,
+      },
+    ],
+  }, {
+    title: 'Users',
     id: 8,
     data: [
       {
@@ -219,14 +466,15 @@ class Admin extends Component {
       selected,
     } = this.props;
 
+    console.log(models[0]);
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xs-3">
+          <div id="menu" className="col-xs-6 col-sm-3">
             <Models models={models} />
           </div>
-          <div className="col-xs-9">
-            <Items items={models[selected]} />
+          <div id="content" className="col-xs-6 col-sm-9">
+            <New />
           </div>
         </div>
       </div>

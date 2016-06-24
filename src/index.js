@@ -1,10 +1,24 @@
-import { createStore } from 'redux';
-import AdminReducer from './reducers/AdminReducer';
+// Libary imports
+import React from 'react';
+import { Router, browserHistory } from 'react-router';
+import ReduxPromise from 'redux-promise';
+import { createStore, applyMiddleware } from 'redux'; // *
 
-const store = createStore(AdminReducer,
-      window.devToolsExtension && window.devToolsExtension()
+
+import reducer from './reducers/index';
+import routes from './routes';
+
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const store = createStoreWithMiddleware(reducer,
+  window.devToolsExtension && window.devToolsExtension()
 );
+
+const App = () => (
+  <Router history={browserHistory} routes={routes(store)} />
+);
+
 
 export {
   store,
+  App,
 };
