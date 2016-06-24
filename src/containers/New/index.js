@@ -27,19 +27,34 @@ class New extends Component {
   render() {
     return (
       <div>
-        <ul className="list-group">
+        <ul id="field" className="list-group">
+          <li className="list-group-item">
+            <h3 className="list-group-item-heading text-center">New {this.props.selected}</h3>
+          </li>
           <BooleanField title={'Property 1'} />
           <InputField title={'Property 2'} type={'string'} />
           <SelectField title={'Property 3'} />
+          <li className="list-group-item clearfix">
+            <button id="save" className="btn btn-primary">Save</button>
+          </li>
         </ul>
-        <button id="save" className="btn btn-primary">Save</button>
       </div>
     );
   }
+}
+
+New.propTypes = {
+  selected: React.PropTypes.string,
+};
+
+function mapStatetoProps(state) {
+  return {
+    selected: state.selected,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ doSomething }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(New);
+export default connect(mapStatetoProps, mapDispatchToProps)(New);

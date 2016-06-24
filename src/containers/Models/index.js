@@ -45,7 +45,7 @@ class Models extends Component {
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
-          <h3 className="list-group-item-heading">Models</h3>
+          <h3 className="list-group-item-heading text-center">Models</h3>
         </li>
         {models.map((model, index) => {
           let active = '';
@@ -60,8 +60,8 @@ class Models extends Component {
               className={`list-group-item${active}`}
               onClick={() => this.onSelect(index)}
             >
+              <i className="fa fa-plus fa-fw" onClick={this.onClickNew} />
               {model.title}
-              <i className="fa fa-plus" onClick={this.onClickNew}></i>
             </li>
           );
         })}

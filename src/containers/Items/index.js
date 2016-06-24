@@ -29,10 +29,13 @@ class Items extends Component {
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
-          <h3 className="list-group-item-heading">{items.title || 'Title'}</h3>
+          <h3 className="list-group-item-heading text-center">{items.title || 'Title'}</h3>
         </li>
         {items.data.map((item) =>
-          <li id="select" key={item.id} className="list-group-item">{item.title}</li>
+          <li id="select" key={item.id} className="list-group-item">
+            <i className="fa fa-pencil fa-fw" onClick={this.onClickNew} />
+            {item.title}
+          </li>
         )}
       </ul>
     );
