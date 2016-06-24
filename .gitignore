@@ -1,3 +1,4 @@
 node_modules
 node-debug*
 .DS_Store
+example/node_modules
