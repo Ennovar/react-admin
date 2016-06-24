@@ -33,7 +33,7 @@ import Models from '../Models';
     }
   ]
 }
-// New Model 
+// New Model
 {
 title: 'Hard Drives',
   attributes: {
@@ -474,7 +474,7 @@ class Admin extends Component {
             <Models models={models} />
           </div>
           <div id="content" className="col-xs-6 col-sm-9">
-            <New />
+            {this.props.children}
           </div>
         </div>
       </div>

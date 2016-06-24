@@ -14,7 +14,7 @@ const store = createStoreWithMiddleware(reducer,
 );
 
 const App = () => (
-  <Router history={browserHistory} routes={routes(store)} />
+  <Router history={browserHistory} routes={routes} />
 );
 
 
