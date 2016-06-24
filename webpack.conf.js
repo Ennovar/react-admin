@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   devtool: 'inline-source-map', //just do inline source maps instead of the default
@@ -14,11 +15,7 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        loaders: [
-          'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        ],
+        test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
       },
       {
         test: /\.scss$/,
@@ -42,6 +39,9 @@ module.exports = {
       //
       // Bootstrap 3
       { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
+    ],
+    plugins: [
+      new ExtractTextPlugin("styles.css")
     ],
   },
 }

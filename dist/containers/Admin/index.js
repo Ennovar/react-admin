@@ -407,10 +407,15 @@ var Admin = function (_Component) {
     return _this;
   }
 
-  // Render method
-
-
   _createClass(Admin, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.getModels();
+    }
+
+    // Render method
+
+  }, {
     key: 'render',
     value: function render() {
       var selected = this.props.selected;
@@ -431,7 +436,7 @@ var Admin = function (_Component) {
           _react2.default.createElement(
             'div',
             { id: 'content', className: 'col-xs-6 col-sm-9' },
-            this.props.children
+            _react2.default.createElement(_New2.default, null)
           )
         )
       );
@@ -442,7 +447,8 @@ var Admin = function (_Component) {
 }(_react.Component);
 
 Admin.propTypes = {
-  selected: _react2.default.PropTypes.number
+  selected: _react2.default.PropTypes.number,
+  getModels: _react2.default.PropTypes.func
 };
 
 function mapStatetoProps(state) {
@@ -452,7 +458,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ doSomething: _admin_actions.doSomething }, dispatch);
+  return (0, _redux.bindActionCreators)({ doSomething: _admin_actions.doSomething, getModels: _admin_actions.getModels }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(Admin);

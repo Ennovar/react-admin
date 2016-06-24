@@ -6,7 +6,7 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { doSomething } from '../../actions/admin_actions';
+import { doSomething, getModels } from '../../actions/admin_actions';
 
 // Components
 import New from '../New';
@@ -460,6 +460,10 @@ class Admin extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.getModels();
+  }
+
   // Render method
   render() {
     const {
@@ -474,7 +478,7 @@ class Admin extends Component {
             <Models models={models} />
           </div>
           <div id="content" className="col-xs-6 col-sm-9">
-            {this.props.children}
+            <New />
           </div>
         </div>
       </div>
@@ -484,6 +488,7 @@ class Admin extends Component {
 
 Admin.propTypes = {
   selected: React.PropTypes.number,
+  getModels: React.PropTypes.func,
 };
 
 function mapStatetoProps(state) {
@@ -493,7 +498,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething }, dispatch);
+  return bindActionCreators({ doSomething, getModels }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Admin);
