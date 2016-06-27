@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 // User imports
-import Select from '../Select';
 import './style.scss';
 
 class SelectField extends Component {
@@ -22,16 +21,26 @@ class SelectField extends Component {
       <li className="list-group-item">
         <ul id="field" className="list-group">
           <li className="list-group-item">
-            <h3 className="list-group-item-heading">{this.props.title}</h3>
+            <h4 className="list-group-item-heading">{this.props.title}</h4>
           </li>
-          <Select title={'Item 1'} />
-          <Select title={'Item 2'} />
-          <Select title={'Item 3'} />
-          <Select title={'Item 4'} />
-          <Select title={'Item 5'} />
-          <Select title={'Item 6'} />
-          <Select title={'Item 7'} />
-          <Select title={'Item 8'} />
+          <li className="list-group-item">
+            Item
+          </li>
+          <li className="list-group-item">
+            Item
+          </li>
+          <li className="list-group-item">
+            Item
+          </li>
+          <li className="list-group-item">
+            Item
+          </li>
+          <li className="list-group-item">
+            Item
+          </li>
+          <li className="list-group-item">
+            Item
+          </li>
         </ul>
       </li>
     );
@@ -39,7 +48,8 @@ class SelectField extends Component {
 }
 
 SelectField.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string,
+  mode: React.PropTypes.string,
 };
 
 export default SelectField;

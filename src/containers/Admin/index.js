@@ -6,11 +6,15 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { doSomething, getModels } from '../../actions/admin_actions';
+import { doSomething, getModels, changeModel } from '../../actions/index';
 
 // Components
 import New from '../New';
+// import Index from '../Index';
 import Models from '../Models';
+// import View from '../View';
+import './style.scss';
+
 // import Items from '../Items';
 /*
 // Query Sidebar options
@@ -44,410 +48,409 @@ title: 'Hard Drives',
   }
 }
 */
-import './style.scss';
 
-const models = [
-  {
-    title: 'Boot Drives',
-    id: 1,
-    data: [
-      {
-        title: '500GB 7K RPM',
-        id: 1,
-        capacity: 500,
-        rpm: 7,
-        connection_type: 'SATA',
-        io: 6,
-        solid_state: false,
-        phy_size: 2.5,
-      }, {
-        title: '500GB 7K RPM',
-        id: 2,
-      }, {
-        title: '300GB 15K RPM',
-        id: 3,
-      }, {
-        title: '600GB 15K RPM',
-        id: 4,
-      }, {
-        title: '300GB 10K RPM',
-        id: 5,
-      }, {
-        title: '600GB 10K RPM',
-        id: 6,
-      }, {
-        title: '1200GB 150 RPM',
-        id: 7,
-      }, {
-        title: '200GB 10K RPM',
-        id: 8,
-      }, {
-        title: '400GB 10K RPM',
-        id: 9,
-      },
-    ],
-  }, {
-    title: 'Cables',
-    id: 2,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-    ],
-  }, {
-    title: 'CPUs',
-    id: 3,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-    ],
-  }, {
-    title: 'IOPS',
-    id: 4,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-    ],
-  }, {
-    title: 'Operating Systems',
-    id: 5,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-    ],
-  }, {
-    title: 'Memories',
-    id: 6,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-    ],
-  }, {
-    title: 'Raid Controllers',
-    id: 7,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-    ],
-  }, {
-    title: 'Resiliencies',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  }, {
-    title: 'SAS Host Adapters',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  }, {
-    title: 'Servers',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  }, {
-    title: 'Storage Drives',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  }, {
-    title: 'Storage Enclosures',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  }, {
-    title: 'Users',
-    id: 8,
-    data: [
-      {
-        title: 'Item 1',
-        id: 1,
-      },
-      {
-        title: 'Item 2',
-        id: 2,
-      },
-      {
-        title: 'Item 3',
-        id: 3,
-      },
-      {
-        title: 'Item 4',
-        id: 4,
-      },
-      {
-        title: 'Item 5',
-        id: 5,
-      },
-      {
-        title: 'Item 6',
-        id: 6,
-      },
-      {
-        title: 'Item 7',
-        id: 7,
-      },
-      {
-        title: 'Item 8',
-        id: 8,
-      },
-    ],
-  },
-];
+// const models = [
+//   {
+//     title: 'Boot Drives',
+//     id: 1,
+//     data: [
+//       {
+//         title: '500GB 7K RPM',
+//         id: 1,
+//         capacity: 500,
+//         rpm: 7,
+//         connection_type: 'SATA',
+//         io: 6,
+//         solid_state: false,
+//         phy_size: 2.5,
+//       }, {
+//         title: '500GB 7K RPM',
+//         id: 2,
+//       }, {
+//         title: '300GB 15K RPM',
+//         id: 3,
+//       }, {
+//         title: '600GB 15K RPM',
+//         id: 4,
+//       }, {
+//         title: '300GB 10K RPM',
+//         id: 5,
+//       }, {
+//         title: '600GB 10K RPM',
+//         id: 6,
+//       }, {
+//         title: '1200GB 150 RPM',
+//         id: 7,
+//       }, {
+//         title: '200GB 10K RPM',
+//         id: 8,
+//       }, {
+//         title: '400GB 10K RPM',
+//         id: 9,
+//       },
+//     ],
+//   }, {
+//     title: 'Cables',
+//     id: 2,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//     ],
+//   }, {
+//     title: 'CPUs',
+//     id: 3,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//     ],
+//   }, {
+//     title: 'IOPS',
+//     id: 4,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//     ],
+//   }, {
+//     title: 'Operating Systems',
+//     id: 5,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//     ],
+//   }, {
+//     title: 'Memories',
+//     id: 6,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//     ],
+//   }, {
+//     title: 'Raid Controllers',
+//     id: 7,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//     ],
+//   }, {
+//     title: 'Resiliencies',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   }, {
+//     title: 'SAS Host Adapters',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   }, {
+//     title: 'Servers',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   }, {
+//     title: 'Storage Drives',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   }, {
+//     title: 'Storage Enclosures',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   }, {
+//     title: 'Users',
+//     id: 8,
+//     data: [
+//       {
+//         title: 'Item 1',
+//         id: 1,
+//       },
+//       {
+//         title: 'Item 2',
+//         id: 2,
+//       },
+//       {
+//         title: 'Item 3',
+//         id: 3,
+//       },
+//       {
+//         title: 'Item 4',
+//         id: 4,
+//       },
+//       {
+//         title: 'Item 5',
+//         id: 5,
+//       },
+//       {
+//         title: 'Item 6',
+//         id: 6,
+//       },
+//       {
+//         title: 'Item 7',
+//         id: 7,
+//       },
+//       {
+//         title: 'Item 8',
+//         id: 8,
+//       },
+//     ],
+//   },
+// ];
 
 class Admin extends Component {
 
@@ -462,20 +465,19 @@ class Admin extends Component {
 
   componentWillMount() {
     this.props.getModels();
+    if (this.props.params.model) {
+      this.props.changeModel(this.props.params.model);
+    }
   }
 
   // Render method
   render() {
-    const {
-      selected,
-    } = this.props;
-
-    console.log(models[0]);
+    // console.log(this.props);
     return (
       <div className="container-fluid">
         <div className="row">
           <div id="menu" className="col-xs-6 col-sm-3">
-            <Models models={models} />
+            <Models />
           </div>
           <div id="content" className="col-xs-6 col-sm-9">
             <New />
@@ -487,18 +489,21 @@ class Admin extends Component {
 }
 
 Admin.propTypes = {
-  selected: React.PropTypes.number,
+  selected_model: React.PropTypes.string,
   getModels: React.PropTypes.func,
+  changeModel: React.PropTypes.func,
+  params: React.PropTypes.object,
 };
 
 function mapStatetoProps(state) {
   return {
-    selected: state.selected,
+    selected: state.selected_model,
+    models: state.models,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething, getModels }, dispatch);
+  return bindActionCreators({ doSomething, getModels, changeModel }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Admin);

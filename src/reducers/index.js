@@ -1,12 +1,28 @@
 const initialState = {
-  selected: 0,
+  selected_model: '',
+  mode: '',
+  models: [
+    {
+      title: 'No Models Found',
+      entry_selected: 0,
+      entries: [
+        {
+          title: '',
+        },
+      ],
+    },
+  ],
 };
 
 export function reducer(state = initialState, action) {
   console.log(action);
   switch (action.type) {
-    case 'CHANGE_SELECTION':
-      return { ...state, selected: action.payload };
+    case 'CHANGE_MODEL':
+      return { ...state, selected_model: action.payload };
+    case 'CHANGE_MODE':
+      return { ...state, mode: action.payload };
+    case 'GET_MODELS':
+      return { ...state, models: action.payload.data };
     default:
       return state;
   }

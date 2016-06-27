@@ -2,26 +2,27 @@
   "name": "react-admin",
   "version": "1.0.0",
   "description": "starting point",
-  "homepage": "https://github.com/AustinMCrane/npmboilerplate#readme",
+  "homepage": "https://github.com/Ennovar/react-admin#readme",
   "main": "dist/index.js",
   "scripts": {
     "test": "karma start",
     "build": "npm run build-js && npm run build-scss",
     "build-js": "babel --presets es2015,stage-0 -d dist/ src/",
     "build-scss": "node-sass --output-style compressed -o dist/ src/",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "dev": "webpack-dev-server --hot --progress --colors"
   },
   "keywords": [
     "somepackage"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AustinMCrane/npmboilerplate.git"
+    "url": "git+https://github.com/Ennovar/react-admin.git"
   },
   "author": "Austin Crane",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AustinMCrane/npmboilerplate/issues"
+    "url": "https://github.com/Ennovar/react-admin/issues"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
@@ -75,6 +76,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.0",
     "react-addons-test-utils": "^15.1.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }

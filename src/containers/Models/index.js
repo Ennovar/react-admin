@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // User imports
-import { changeSelection } from '../../actions/admin_actions';
+import { changeModel, getModels } from '../../actions/index';
+import { makeURL } from '../../helpers/functions';
 
-// Components
+// Styles
 import './style.scss';
 
 class Models extends Component {
@@ -24,11 +25,14 @@ class Models extends Component {
   }
 
   componentWillMount() {
-    this.props.changeSelection(0);
+    // this.props.getModels().then(this.props.changeModel(makeURL(this.props.models[0].title)));
+    if (this.props.selected === '') {
+      this.props.changeModel(makeURL(this.props.models[0].title));
+    }
   }
 
   onSelect(index) {
-    this.props.changeSelection(index);
+    this.props.changeModel(makeURL(this.props.models[index].title));
   }
 
   onClickNew(e) {
@@ -37,6 +41,7 @@ class Models extends Component {
 
   // Render method
   render() {
+    console.log(this.props);
     const {
       models,
       selected,
@@ -49,7 +54,7 @@ class Models extends Component {
         </li>
         {models.map((model, index) => {
           let active = '';
-          if (selected === index) {
+          if (selected === makeURL(model.title)) {
             active = ' active';
           }
 
@@ -71,19 +76,21 @@ class Models extends Component {
 }
 
 Models.propTypes = {
-  changeSelection: React.PropTypes.func.isRequired,
-  models: React.PropTypes.array.isRequired,
-  selected: React.PropTypes.number,
+  changeModel: React.PropTypes.func,
+  models: React.PropTypes.array,
+  selected: React.PropTypes.string,
+  getModels: React.PropTypes.func,
 };
 
 function mapStatetoProps(state) {
   return {
-    selected: state.selected,
+    selected: state.selected_model,
+    models: state.models,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ changeSelection }, dispatch);
+  return bindActionCreators({ changeModel, getModels }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Models);

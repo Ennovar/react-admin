@@ -1,9 +1,8 @@
-const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: 'inline-source-map', //just do inline source maps instead of the default
-  entry: ['bootstrap-loader'],
+  devtool: 'inline-source-map', // just do inline source maps instead of the default
+  entry: ['bootstrap-loader', './src/index.js'],
   module: {
     loaders: [
       {
@@ -15,7 +14,7 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
+        test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap'),
       },
       {
         test: /\.scss$/,
@@ -40,8 +39,15 @@ module.exports = {
       // Bootstrap 3
       { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
     ],
-    plugins: [
-      new ExtractTextPlugin("styles.css")
-    ],
   },
-}
+  plugins: [
+    new ExtractTextPlugin('bundle.css'),
+  ],
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './',
+    host: '0.0.0.0',
+    hot: true,
+    inline: true,
+  },
+};
