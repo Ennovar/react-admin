@@ -6,10 +6,11 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { doSomething, getModels, changeModel } from '../../actions/index';
+import { getModels, setModel, getEntries } from '../../actions/index';
+import { makeURL } from '../../helpers/functions';
 
 // Components
-import New from '../New';
+// import New from '../New';
 // import Index from '../Index';
 import Models from '../Models';
 // import View from '../View';
@@ -464,15 +465,25 @@ class Admin extends Component {
   }
 
   componentWillMount() {
+    // url contains a model title
     this.props.getModels();
     if (this.props.params.model) {
-      this.props.changeModel(this.props.params.model);
+      this.props.setModel(makeURL(this.props.params.model));
     }
+
+    // url contains an entry id
+    if (this.props.params.entry) {
+      // this.props.getEntries();
+      // Select a model
+    }
+  }
+
+  componentWillReceiveProps() {
   }
 
   // Render method
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <div className="container-fluid">
         <div className="row">
@@ -480,7 +491,7 @@ class Admin extends Component {
             <Models />
           </div>
           <div id="content" className="col-xs-6 col-sm-9">
-            <New />
+            {this.props.children}
           </div>
         </div>
       </div>
@@ -489,21 +500,22 @@ class Admin extends Component {
 }
 
 Admin.propTypes = {
-  selected_model: React.PropTypes.string,
+  model: React.PropTypes.string,
   getModels: React.PropTypes.func,
-  changeModel: React.PropTypes.func,
+  getEntries: React.PropTypes.func,
+  setModel: React.PropTypes.func,
   params: React.PropTypes.object,
 };
 
 function mapStatetoProps(state) {
   return {
-    selected: state.selected_model,
+    selected: state.model,
     models: state.models,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething, getModels, changeModel }, dispatch);
+  return bindActionCreators({ getModels, setModel, getEntries }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Admin);

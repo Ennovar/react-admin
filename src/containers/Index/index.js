@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 
 // User imports
-import { doSomething } from '../../actions/index';
+import { setEntry, getEntries } from '../../actions/index';
+import { makeURL } from '../../helpers/functions';
 import './style.scss';
 
 const entries = [
@@ -209,21 +211,41 @@ class Index extends Component {
     this.state = {
       value: false,
     };
+
+    this.onClickEntry = this.onClickEntry.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getEntries(this.props.model);
+  }
+
+  onClickEntry(id) {
+    this.props.setEntry(id);
+    browserHistory.push(makeURL(this.props.title) + '/' + id);
+  }
+
+  componentWillReceiveProps() {
   }
 
   // Render method
   render() {
     const {
       items,
+      title
     } = this.props;
 
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
-          <h3 className="list-group-item-heading text-center">{entries.title || 'Title'}</h3>
+          <h3 className="list-group-item-heading text-center">{title || 'Title'}</h3>
         </li>
         {entries.map((entry) =>
-          <li id="select" key={entry.id} className="list-group-item">
+          <li
+            id="select"
+            key={entry.id}
+            className="list-group-item"
+            onClick={() => this.onClickEntry(entry.id)}
+          >
             <i className="fa fa-pencil fa-fw" onClick={this.onClickNew} />
             {entry.title}
           </li>
@@ -235,10 +257,20 @@ class Index extends Component {
 
 Index.propTypes = {
   items: React.PropTypes.object,
+  entries: React.PropTypes.object,
+  title: React.PropTypes.string,
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething }, dispatch);
+function mapStatetoProps(state) {
+  return {
+    model: state.model,
+    entries: state.models[state.model].entries,
+    title: state.models[state.model].title,
+  };
 }
 
-export default connect(null, mapDispatchToProps)(Index);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setEntry, getEntries }, dispatch);
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(Index);

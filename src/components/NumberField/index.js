@@ -24,6 +24,10 @@ class NumberField extends Component {
     } else {
       this.setState({ mode: 'view' });
     }
+
+    if(this.props.value) {
+      this.setState({ value: this.props.value });
+    }
   }
 
   onNumberChange(e) {
@@ -104,6 +108,7 @@ class NumberField extends Component {
 NumberField.propTypes = {
   title: React.PropTypes.string,
   mode: React.PropTypes.string,
+  value: React.PropTypes.number,
 };
 
 export default NumberField;

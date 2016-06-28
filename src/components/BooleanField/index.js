@@ -26,6 +26,10 @@ class BooleanField extends Component {
     } else {
       this.setState({ mode: 'view' });
     }
+
+    if (this.props.value) {
+      this.setState({ value: this.props.value });
+    }
     // Set the value if in edit or view mode
   }
 
@@ -110,6 +114,7 @@ class BooleanField extends Component {
 BooleanField.propTypes = {
   title: React.PropTypes.string.isRequired,
   mode: React.PropTypes.string,
+  value: React.PropTypes.bool,
 };
 
 export default BooleanField;

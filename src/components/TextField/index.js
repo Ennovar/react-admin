@@ -17,7 +17,15 @@ class TextField extends Component {
   }
 
   componentWillMount() {
-    this.setState({ mode: this.props.mode });
+    if (this.props.mode === 'new') {
+      this.setState({ mode: this.props.mode });
+    } else {
+      this.setState({ mode: 'view' });
+    }
+
+    if (this.props.value) {
+      this.setState({ value: this.props.value });
+    }
   }
 
   onEditClick() {
@@ -91,6 +99,7 @@ class TextField extends Component {
 TextField.propTypes = {
   title: React.PropTypes.string,
   mode: React.PropTypes.string,
+  value: React.PropTypes.string,
   changeMode: React.PropTypes.func,
 };
 

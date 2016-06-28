@@ -6,6 +6,7 @@ import { Route, IndexRoute } from 'react-router';
 import Admin from './containers/Admin';
 import Index from './containers/Index';
 import New from './containers/New';
+import View from './containers/View';
 
 class SomeComponent extends React.Component {
   render() {
@@ -22,7 +23,7 @@ export default (store) => (
     <IndexRoute component={Index} />
     <Route path=":model" component={Index} />
     <Route path=":model/new" component={New} />
-    <Route path=":model/:entry" component={New} />
-    <Route path=":model/:entry/edit" component={New} />
+    <Route path=":model/:entry" component={View} />
+    <Route path=":model/:entry/edit" component={View} />
   </Route>
 );

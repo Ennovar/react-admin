@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // User imports
-import { doSomething, changeMode } from '../../actions/index';
+import { setMode } from '../../actions/index';
+import BooleanField from '../../components/BooleanField';
+import NumberField from '../../components/NumberField';
+import TextField from '../../components/TextField';
+import SelectField from '../../components/SelectField';
+
 import './style.scss';
 
 const entry = {
@@ -23,12 +28,12 @@ const entry = {
     value: 'SATA',
   },
   io: {
-    title: 'IO',
+    title: 'I/O',
     value: 6,
   },
   solid_state: {
     title: 'Solid State',
-    value: false,
+    value: true,
   },
   phy_size: {
     title: 'Physical Size',
@@ -48,27 +53,83 @@ class View extends Component {
   }
 
   componentWillMount() {
-    this.props.changeMode('edit');
+    this.props.setMode('edit');
   }
 
   // Render method
   render() {
+    const {
+      mode,
+    } = this.props;
+    // console.log(this.props.entry);
+
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
           <h3 className="list-group-item-heading text-center">{entry.title || 'Title'}</h3>
         </li>
+        {Object.keys(entry).map((key) => {
+          console.log(typeof entry[key].value);
+          if (typeof entry[key].value === 'boolean') {
+            return (
+              <BooleanField
+                key={entry[key].title}
+                mode={this.props.mode}
+                title={entry[key].title}
+                value={entry[key].value}
+              />
+            );
+          } else if (typeof entry[key].value === 'string') {
+            return (
+              <TextField
+                key={entry[key].title}
+                title={entry[key].title}
+                mode={this.props.mode}
+                value={entry[key].value}
+              />
+            );
+          } else if (typeof entry[key].value === 'number') {
+            return (
+              <NumberField
+                key={entry[key].title}
+                title={entry[key].title}
+                mode={this.props.mode}
+                value={entry[key].value}
+              />
+            );
+          } else if (typeof entry[key].value === 'object') {
+            return (
+              <SelectField
+                key={entry[key].title}
+                title={entry[key].title}
+                mode={this.props.mode}
+                value={entry[key].value}
+              />
+            );
+          }
+          return null;
+        })}
       </ul>
     );
   }
 }
 
 View.propTypes = {
-  changeMode: React.PropTypes.func,
+  setMode: React.PropTypes.func,
+  entry: React.PropTypes.object,
+  mode: React.PropTypes.string,
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ doSomething, changeMode }, dispatch);
+function mapStatetoProps(state) {
+  return {
+    selected: state.entry,
+    mode: state.mode,
+  //  entry: state.models[state.model].entries[state.entry],
+  };
 }
 
-export default connect(null, mapDispatchToProps)(View);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setMode }, dispatch);
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(View);

@@ -3,6 +3,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   devtool: 'inline-source-map', // just do inline source maps instead of the default
   entry: ['bootstrap-loader', './src/index.js'],
+  output: {
+    filename: 'bundle.js',
+    path: __dirname,
+    publicPath: '/',
+  },
   module: {
     loaders: [
       {

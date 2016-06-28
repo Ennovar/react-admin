@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 
 // User imports
-import { changeModel, getModels } from '../../actions/index';
+// -- Functions
+import { setModel, getModels, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
-
-// Styles
+// -- Styles
 import './style.scss';
 
 class Models extends Component {
@@ -20,19 +21,26 @@ class Models extends Component {
       selected: '',
     };
 
-    this.onSelect = this.onSelect.bind(this);
+    this.onClickModel = this.onClickModel.bind(this);
     this.onClickNew = this.onClickNew.bind(this);
   }
 
   componentWillMount() {
     // this.props.getModels().then(this.props.changeModel(makeURL(this.props.models[0].title)));
-    if (this.props.selected === '') {
-      this.props.changeModel(makeURL(this.props.models[0].title));
+
+    // url == /admin, so set the first model to be the selected model
+    if (this.props.selected === -1) {
+      const title = this.props.models[0].title;
+      this.props.setModel(makeURL(title));
+      browserHistory.push(makeURL(title));
     }
   }
 
-  onSelect(index) {
-    this.props.changeModel(makeURL(this.props.models[index].title));
+  onClickModel(model) {
+    const url = makeURL(model);
+    this.props.setModel(url);
+    this.props.getEntries(url);
+    browserHistory.push(`/${url}`);
   }
 
   onClickNew(e) {
@@ -41,7 +49,6 @@ class Models extends Component {
 
   // Render method
   render() {
-    console.log(this.props);
     const {
       models,
       selected,
@@ -52,9 +59,9 @@ class Models extends Component {
         <li className="list-group-item">
           <h3 className="list-group-item-heading text-center">Models</h3>
         </li>
-        {models.map((model, index) => {
+        {Object.keys(models).map((model, index) => {
           let active = '';
-          if (selected === makeURL(model.title)) {
+          if (model === selected) {
             active = ' active';
           }
 
@@ -63,10 +70,10 @@ class Models extends Component {
               id="select"
               key={index}
               className={`list-group-item${active}`}
-              onClick={() => this.onSelect(index)}
+              onClick={() => this.onClickModel(models[model].title)}
             >
               <i className="fa fa-plus fa-fw" onClick={this.onClickNew} />
-              {model.title}
+              {models[model].title}
             </li>
           );
         })}
@@ -76,21 +83,22 @@ class Models extends Component {
 }
 
 Models.propTypes = {
-  changeModel: React.PropTypes.func,
-  models: React.PropTypes.array,
+  setModel: React.PropTypes.func,
+  models: React.PropTypes.object,
   selected: React.PropTypes.string,
   getModels: React.PropTypes.func,
+  getEntries: React.PropTypes.func,
 };
 
 function mapStatetoProps(state) {
   return {
-    selected: state.selected_model,
+    selected: state.model,
     models: state.models,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ changeModel, getModels }, dispatch);
+  return bindActionCreators({ setModel, getModels, getEntries }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Models);
