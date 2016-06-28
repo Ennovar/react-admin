@@ -7,7 +7,9 @@ import routes from './routes';
 import { reducer } from './reducers';
 import ReduxPromise from 'redux-promise';
 import { createStore, applyMiddleware } from 'redux';
+import AdminActions from './actions';
 
+AdminActions.baseUrl = 'http://reactadmintestapi.herokuapp.com/api';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 const store = createStoreWithMiddleware(reducer,

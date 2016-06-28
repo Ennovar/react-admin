@@ -6,7 +6,8 @@ import { browserHistory } from 'react-router';
 
 // User imports
 // -- Functions
-import { setModel, getModels, getEntries } from '../../actions/index';
+import AdminActions from '../../actions';
+// import { setModel, getModels, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 // -- Styles
 import './style.scss';
@@ -29,10 +30,14 @@ class Models extends Component {
     // this.props.getModels().then(this.props.changeModel(makeURL(this.props.models[0].title)));
 
     // url == /admin, so set the first model to be the selected model
-    if (this.props.selected === -1) {
-      const title = this.props.models[0].title;
-      this.props.setModel(makeURL(title));
-      browserHistory.push(makeURL(title));
+    if (this.props.selected === '') {
+      this.props.getModels().then((data) => {
+        if (!data.error) {
+          const title = Object.keys(this.props.models)[0];
+          this.props.setModel(title);
+          browserHistory.push(title);
+        }
+      });
     }
   }
 
@@ -98,7 +103,12 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setModel, getModels, getEntries }, dispatch);
+  return bindActionCreators(
+    {
+      setModel: AdminActions.setModel,
+      getModels: AdminActions.getModels,
+      getEntries: AdminActions.getEntries,
+    }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Models);

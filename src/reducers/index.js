@@ -1,20 +1,20 @@
 import { makeURL } from '../helpers/functions';
 
 const initialState = {
-  model: -1,
+  model: '',
   entry: -1,
   mode: '',
-  models: [
-    {
-      title: 'No Models Found',
+  models: {
+    nul: {
+      title: '',
       entry_selected: 0,
-      entries: [
-        {
+      entries: {
+        0: {
           title: '',
         },
-      ],
+      },
     },
-  ],
+  },
 };
 
 function getIndex(title, array) {
@@ -50,7 +50,7 @@ export function reducer(state = initialState, action) {
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
     case 'GET_MODELS':
-      return { ...state, models: toObj(action.payload.data, 'title') };
+      return { ...state, models: toObj(action.payload.data.models, 'title') };
     case 'GET_ENTRIES': {
       return Object.assign({}, state, { models: Object.assign({}, state.models, { [state.model]: { ...state.models[state.model], entries: toObj(action.payload.data, 'id') } }) });
     }

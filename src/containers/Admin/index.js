@@ -6,7 +6,8 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { getModels, setModel, getEntries } from '../../actions/index';
+import AdminActions from '../../actions';
+// import { getModels, setModel, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 
 // Components
@@ -466,10 +467,12 @@ class Admin extends Component {
 
   componentWillMount() {
     // url contains a model title
-    this.props.getModels();
-    if (this.props.params.model) {
-      this.props.setModel(makeURL(this.props.params.model));
-    }
+    console.log(AdminActions.baseUrl);
+    this.props.getModels().then((data) =>{
+      if (this.props.params.model && !data.error) {
+        this.props.setModel(makeURL(this.props.params.model));
+      }
+    })
 
     // url contains an entry id
     if (this.props.params.entry) {
@@ -515,7 +518,12 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getModels, setModel, getEntries }, dispatch);
+  return bindActionCreators(
+    {
+      getModels: AdminActions.getModels,
+      setModel: AdminActions.setModel,
+      getEntries: AdminActions.getEntries,
+    }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Admin);
