@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const base_url = 'http://localhost:3000/api/admin';
 
 /**
  * getModels - get all of the models that need to be manipulated by the admin panel
@@ -9,42 +8,6 @@ const base_url = 'http://localhost:3000/api/admin';
  * @return {type}  description
  */
 export function getModels() {
-  axios.get(base_url);
-  // action.data
-
-  // return {
-  //   type: 'SOME_ACTION_TYPE',
-  //   data: [
-  //     {
-  //       title: 'Cars',
-  //       crud: {
-  //         create: 'url to POST to to create a car',
-  //         index: 'url to GET all cars',
-  //         show: 'url to GET a specific car EXAMPLE: http://bobscars.com/api/cars/:id with id being a convention to get the car with that id',
-  //         update: 'url to PUT an update to a specific car while following the same conventions as #show ^^',
-  //         delete: 'url to DELETE a specific car with the id convention above ^^^'
-  //       }
-  //     }
-  //   ]
-  // }
-  //   action.payload.data
-
-  // return {
-  //   type: 'SOME_ACTION_TYPE',
-  //   payload: [
-  //     {
-  //       title: 'Cars',
-  //       crud: {
-  //         create: 'url to POST to to create a car',
-  //         index: 'url to GET all cars',
-  //         show: 'url to GET a specific car EXAMPLE: http://bobscars.com/api/cars/:id with id being a convention to get the car with that id',
-  //         update: 'url to PUT an update to a specific car while following the same conventions as #show ^^',
-  //         delete: 'url to DELETE a specific car with the id convention above ^^^'
-  //       }
-  //     }
-  //   ]
-  // }
-
 }
 
 /**
