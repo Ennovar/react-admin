@@ -6,8 +6,8 @@ import { browserHistory } from 'react-router';
 
 // User imports
 // -- Functions
-import AdminActions from '../../actions';
-// import { setModel, getModels, getEntries } from '../../actions/index';
+// import { getModels, getEntry, setModel } from '../../actions';
+import { setModel, requestModels, requestEntries } from '../../actions/';
 import { makeURL } from '../../helpers/functions';
 // -- Styles
 import './style.scss';
@@ -31,20 +31,20 @@ class Models extends Component {
 
     // url == /admin, so set the first model to be the selected model
     if (this.props.selected === '') {
-      this.props.getModels().then((data) => {
-        if (!data.error) {
-          const title = Object.keys(this.props.models)[0];
-          this.props.setModel(title);
-          browserHistory.push(title);
-        }
-      });
+      // this.props.getModels().then((data) => {
+      //   if (!data.error) {
+      //     const title = Object.keys(this.props.models)[0];
+      //     this.props.setModel(title);
+      //     browserHistory.push(title);
+      //   }
+      // });
     }
   }
 
   onClickModel(model) {
     const url = makeURL(model);
-    this.props.setModel(url);
-    this.props.getEntries(url);
+    this.props.setModel(model);
+    this.props.requestEntries(url);
     browserHistory.push(`/${url}`);
   }
 
@@ -75,7 +75,7 @@ class Models extends Component {
               id="select"
               key={index}
               className={`list-group-item${active}`}
-              onClick={() => this.onClickModel(models[model].title)}
+              onClick={() => this.onClickModel(models[model].tag)}
             >
               <i className="fa fa-plus fa-fw" onClick={this.onClickNew} />
               {models[model].title}
@@ -91,8 +91,8 @@ Models.propTypes = {
   setModel: React.PropTypes.func,
   models: React.PropTypes.object,
   selected: React.PropTypes.string,
-  getModels: React.PropTypes.func,
-  getEntries: React.PropTypes.func,
+  requestModels: React.PropTypes.func,
+  requestEntries: React.PropTypes.func,
 };
 
 function mapStatetoProps(state) {
@@ -105,9 +105,9 @@ function mapStatetoProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setModel: AdminActions.setModel,
-      getModels: AdminActions.getModels,
-      getEntries: AdminActions.getEntries,
+      setModel,
+      requestModels,
+      requestEntries,
     }, dispatch);
 }
 

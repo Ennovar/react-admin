@@ -1,5 +1,8 @@
 import axios from 'axios';
-
+import {
+  RECEIVE_MODELS,
+  RECEIVE_ENTRIES,
+} from '../constants';
 
 /**
  * getModels - get all of the models that need to be manipulated by the admin panel
@@ -7,7 +10,12 @@ import axios from 'axios';
  *
  * @return {type}  description
  */
-export function getModels() {
+export function getModels(url) {
+  const payload = axios.get(url)
+  return {
+    type: RECEIVE_MODELS,
+    payload,
+  };
 }
 
 /**
@@ -16,10 +24,11 @@ export function getModels() {
  * @param  {int} modelIndex index of model to GET index of
  * @return {promise}            promise
  */
-export function getIndex(modelIndex) {
+export function getEntries(url) {
+  const payload = axios.get(url)
   return {
-    type: 'MODEL_AT_INDEX',
-    index: modelIndex
+    type: RECEIVE_ENTRIES,
+    payload,
   }
 }
 

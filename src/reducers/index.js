@@ -1,9 +1,15 @@
 import { makeURL } from '../helpers/functions';
+import {
+  RECEIVE_MODELS,
+  RECEIVE_ENTRIES,
+} from '../constants';
 
 const initialState = {
   model: '',
   entry: -1,
   mode: '',
+  baseUrl: 'http://localhost:8000/api/',
+  adminUrl: 'http://localhost:8000/api/admin',
   models: {
     nul: {
       title: '',
@@ -19,7 +25,7 @@ const initialState = {
 
 function getIndex(title, array) {
   for (let i = 0; i < array.length; i++) {
-    if (title === makeURL(array[i].title)) {
+    if (title === makeURL(array[i].tag)) {
       return i;
     }
   }
@@ -29,8 +35,8 @@ function getIndex(title, array) {
 function toObj(array, param) {
   const outer = {};
   for (let i = 0; i < array.length; i++) {
-    if (param === 'title') {
-      outer[makeURL(array[i].title)] = array[i];
+    if (param === 'tag') {
+      outer[makeURL(array[i].tag)] = array[i];
     } else if (param === 'id') {
       outer[array[i].id] = array[i];
     } else {
@@ -49,9 +55,9 @@ export function reducer(state = initialState, action) {
       return { ...state, selected_entry: action.payload };
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
-    case 'GET_MODELS':
-      return { ...state, models: toObj(action.payload.data.models, 'title') };
-    case 'GET_ENTRIES': {
+    case RECEIVE_MODELS:
+      return { ...state, models: toObj(action.payload.data.models, 'tag') };
+    case RECEIVE_ENTRIES: {
       return Object.assign({}, state, { models: Object.assign({}, state.models, { [state.model]: { ...state.models[state.model], entries: toObj(action.payload.data, 'id') } }) });
     }
     default:

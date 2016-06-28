@@ -6,7 +6,7 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import AdminActions from '../../actions';
+import { requestModels } from '../../actions/';
 // import { getModels, setModel, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 
@@ -467,12 +467,11 @@ class Admin extends Component {
 
   componentWillMount() {
     // url contains a model title
-    console.log(AdminActions.baseUrl);
-    this.props.getModels().then((data) =>{
-      if (this.props.params.model && !data.error) {
-        this.props.setModel(makeURL(this.props.params.model));
-      }
-    })
+    // this.props.requestModels().then((data) =>{
+    //   if (this.props.params.model && !data.error) {
+    //     this.props.setModel(makeURL(this.props.params.model));
+    //   }
+    // })
 
     // url contains an entry id
     if (this.props.params.entry) {
@@ -504,9 +503,9 @@ class Admin extends Component {
 
 Admin.propTypes = {
   model: React.PropTypes.string,
-  getModels: React.PropTypes.func,
-  getEntries: React.PropTypes.func,
-  setModel: React.PropTypes.func,
+  requestModels: React.PropTypes.func,
+  // getEntries: React.PropTypes.func,
+  // setModel: React.PropTypes.func,
   params: React.PropTypes.object,
 };
 
@@ -520,9 +519,7 @@ function mapStatetoProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getModels: AdminActions.getModels,
-      setModel: AdminActions.setModel,
-      getEntries: AdminActions.getEntries,
+      requestModels,
     }, dispatch);
 }
 

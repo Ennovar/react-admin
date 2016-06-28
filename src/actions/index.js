@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+import {
+  GET_MODELS,
+  GET_ENTRIES,
+} from '../constants';
+
+const baseUrl = 'http://localhost:8000/api/';
+
 /* ******************************** SETTERS ******************************** */
 export function setMode(mode) {
   return {
@@ -34,31 +41,23 @@ export function setEntry(entry) {
 /* ****************************** END SETTERS ****************************** */
 
 /* ******************************** GETTERS ******************************** */
-export function getModels() {
-  const url = `${AdminActions.baseUrl}/admin`;
-  console.log(url);
-  const payload = axios.get(`${AdminActions.baseUrl}/admin`);
+export function requestModels() {
   return {
-    type: 'GET_MODELS',
-    payload,
+    type: GET_MODELS,
   };
 }
 
-export function getEntries(model) {
-  const url = `${this.baseUrl}/${model}`;
-  const payload = axios.get(url);
-
+export function requestEntries(modelTag) {
   return {
-    type: 'GET_ENTRIES',
-    payload,
+    type: GET_ENTRIES,
     meta: {
-      model,
+      modelTag,
     },
   };
 }
 
 export function getEntry(id, model) {
-  const url = `${this.baseUrl}/${model}/${id}`;
+  const url = `${baseUrl}/${model}/${id}`;
   const payload = axios.get(url);
 
   return {
