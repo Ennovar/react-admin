@@ -24,16 +24,13 @@ export const logger = store => next => action => {
       store.dispatch(getModels(store.getState().adminUrl));
       break;
     case GET_ENTRIES:
-      console.log(store.getState().models)
+      console.log(store.getState().models);
       const crud = getCRUDFromModelWithTag(action.meta.modelTag, store.getState().models);
       store.dispatch(getEntries(store.getState().baseUrl + crud.index));
     default:
+      break;
 
   }
-  console.group(action.type)
-  console.info('dispatching', action)
-  let result = next(action)
-  console.log('next state', store.getState())
-  console.groupEnd(action.type)
-  return result
+  const result = next(action);
+  return result;
 }

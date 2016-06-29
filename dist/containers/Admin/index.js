@@ -421,7 +421,6 @@ var Admin = function (_Component) {
       var selected = this.props.selected;
 
 
-      console.log(models[0]);
       return _react2.default.createElement(
         'div',
         { className: 'container-fluid' },

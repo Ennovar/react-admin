@@ -45,7 +45,6 @@ var TextField = function (_React$Component) {
       this.setState({
         value: e.target.value
       });
-      console.log(this.state);
     }
   }, {
     key: 'render',

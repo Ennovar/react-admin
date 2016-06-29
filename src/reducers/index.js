@@ -8,8 +8,8 @@ const initialState = {
   model: '',
   entry: -1,
   mode: '',
-  baseUrl: 'http://localhost:8000/api/',
-  adminUrl: 'http://localhost:8000/api/admin',
+  baseUrl: 'http://localhost:8080/api/',
+  adminUrl: 'http://localhost:8080/api/admin',
   models: {
     nul: {
       title: '',

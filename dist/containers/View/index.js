@@ -107,7 +107,6 @@ var View = function (_Component) {
       var _this2 = this;
 
       var mode = this.props.mode;
-      // console.log(this.props.entry);
 
       return _react2.default.createElement(
         'ul',
@@ -122,7 +121,6 @@ var View = function (_Component) {
           )
         ),
         Object.keys(entry).map(function (key) {
-          console.log(_typeof(entry[key].value));
           if (typeof entry[key].value === 'boolean') {
             return _react2.default.createElement(_BooleanField2.default, {
               key: entry[key].title,

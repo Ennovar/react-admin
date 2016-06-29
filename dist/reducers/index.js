@@ -15,7 +15,6 @@ function reducer() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
   var action = arguments[1];
 
-  console.log(action);
   switch (action.type) {
     case 'CHANGE_SELECTION':
       return _extends({}, state, { selected: action.payload });

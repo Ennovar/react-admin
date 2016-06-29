@@ -65,7 +65,6 @@ var Models = function (_Component) {
   }, {
     key: 'onClickNew',
     value: function onClickNew(e) {
-      console.log(e.target.className);
     }
 
     // Render method

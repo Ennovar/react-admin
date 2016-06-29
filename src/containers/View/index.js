@@ -61,7 +61,6 @@ class View extends Component {
     const {
       mode,
     } = this.props;
-    // console.log(this.props.entry);
 
     return (
       <ul id="field" className="list-group">
