@@ -23,10 +23,16 @@ export const logger = store => next => action => {
     case GET_MODELS:
       store.dispatch(getModels(store.getState().adminUrl));
       break;
-    case GET_ENTRIES:
+    case GET_ENTRIES: {
       console.log(store.getState().models);
       const crud = getCRUDFromModelWithTag(action.meta.modelTag, store.getState().models);
-      store.dispatch(getEntries(store.getState().baseUrl + crud.index));
+      if (!crud) {
+        store.dispatch(getModels(store.getState().adminUrl))
+      } else {
+        store.dispatch(getEntries(store.getState().baseUrl + crud.index));
+      }
+      break;
+    }
     default:
       break;
 

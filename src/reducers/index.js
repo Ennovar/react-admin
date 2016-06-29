@@ -5,18 +5,18 @@ import {
 } from '../constants';
 
 const initialState = {
-  model: '',
+  model: 'no_models',
   entry: -1,
   mode: '',
-  baseUrl: 'http://localhost:8080/api/',
-  adminUrl: 'http://localhost:8080/api/admin',
+  baseUrl: 'http://reactadmintestapi.herokuapp.com/api/',
+  adminUrl: 'http://reactadmintestapi.herokuapp.com/api/admin',
   models: {
-    nul: {
-      title: '',
+    no_models: {
+      title: 'No Models',
       entry_selected: 0,
       entries: {
         0: {
-          title: '',
+          title: 'No Model Selected',
         },
       },
     },
@@ -55,8 +55,13 @@ export function reducer(state = initialState, action) {
       return { ...state, selected_entry: action.payload };
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
-    case RECEIVE_MODELS:
-      return { ...state, models: toObj(action.payload.data.models, 'tag') };
+    case RECEIVE_MODELS: {
+      let newState = { ...state, models: toObj(action.payload.data.models, 'tag') }
+      if (state.model === 'no_models') {
+        newState = { ...newState, model: Object.keys(newState.models)[0] };
+      }
+      return newState;
+    }
     case RECEIVE_ENTRIES: {
       return Object.assign({}, state, { models: Object.assign({}, state.models, { [state.model]: { ...state.models[state.model], entries: toObj(action.payload.data, 'id') } }) });
     }

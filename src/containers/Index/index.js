@@ -5,202 +5,202 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
 // User imports
-import {  requestModels } from '../../actions/index';
+import {  requestEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 import './style.scss';
 
-const entries = [
-  {
-    id: 1,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 2,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 3,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 4,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 5,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 6,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  }, {
-    id: 7,
-    title: '500GB 7K RPM',
-    capacity: {
-      title: 'Capacity',
-      value: 500,
-    },
-    rpm: {
-      title: 'RPM',
-      value: 7,
-    },
-    connection_type: {
-      title: 'Connection Type',
-      value: 'SATA',
-    },
-    io: {
-      title: 'IO',
-      value: 6,
-    },
-    solid_state: {
-      title: 'Solid State',
-      value: false,
-    },
-    phy_size: {
-      title: 'Physical Size',
-      value: 2.5,
-    },
-  },
-];
+// const entries = [
+//   {
+//     id: 1,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 2,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 3,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 4,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 5,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 6,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   }, {
+//     id: 7,
+//     title: '500GB 7K RPM',
+//     capacity: {
+//       title: 'Capacity',
+//       value: 500,
+//     },
+//     rpm: {
+//       title: 'RPM',
+//       value: 7,
+//     },
+//     connection_type: {
+//       title: 'Connection Type',
+//       value: 'SATA',
+//     },
+//     io: {
+//       title: 'IO',
+//       value: 6,
+//     },
+//     solid_state: {
+//       title: 'Solid State',
+//       value: false,
+//     },
+//     phy_size: {
+//       title: 'Physical Size',
+//       value: 2.5,
+//     },
+//   },
+// ];
 
 class Index extends Component {
 
@@ -216,12 +216,13 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    this.props.requestModels();
+    console.log()
+    this.props.requestEntries(this.props.model);
   }
 
   onClickEntry(id) {
-    // this.props.setEntry(id);
-    // browserHistory.push(makeURL(this.props.title) + '/' + id);
+    this.props.setEntry(id);
+    browserHistory.push(makeURL(this.props.title) + '/' + id);
   }
 
   componentWillReceiveProps() {
@@ -230,7 +231,7 @@ class Index extends Component {
   // Render method
   render() {
     const {
-      items,
+      entries,
       title
     } = this.props;
 
@@ -239,15 +240,15 @@ class Index extends Component {
         <li className="list-group-item">
           <h3 className="list-group-item-heading text-center">{title || 'Title'}</h3>
         </li>
-        {entries.map((entry) =>
+        {Object.keys(entries).map((entry) =>
           <li
             id="select"
-            key={entry.id}
+            key={entries[entry].id}
             className="list-group-item"
-            onClick={() => this.onClickEntry(entry.id)}
+            onClick={() => this.onClickEntry(entries[entry].id)}
           >
             <i className="fa fa-pencil fa-fw" onClick={this.onClickNew} />
-            {entry.title}
+            {entries[entry].title}
           </li>
         )}
       </ul>
@@ -257,20 +258,24 @@ class Index extends Component {
 
 Index.propTypes = {
   items: React.PropTypes.object,
+  mode: React.PropTypes.string,
   entries: React.PropTypes.object,
   title: React.PropTypes.string,
+  requestEntries: React.PropTypes.func,
 };
 
 function mapStatetoProps(state) {
+  console.log('MODEL', state.model);
+  console.log('ENTRIES', state.models[state.model]);
   return {
     model: state.model,
-    // entries: state.models[state.model].entries,
-    title: 'state.models[state.model].title',
+    entries: state.models[state.model].entries,
+    title: state.models[state.model].title,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ requestModels }, dispatch);
+  return bindActionCreators({ requestEntries }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Index);

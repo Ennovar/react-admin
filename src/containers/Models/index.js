@@ -30,15 +30,18 @@ class Models extends Component {
     // this.props.getModels().then(this.props.changeModel(makeURL(this.props.models[0].title)));
 
     // url == /admin, so set the first model to be the selected model
-    if (this.props.selected === '') {
-      // this.props.getModels().then((data) => {
-      //   if (!data.error) {
-      //     const title = Object.keys(this.props.models)[0];
-      //     this.props.setModel(title);
-      //     browserHistory.push(title);
-      //   }
-      // });
+    if (this.props.selected === 'no_models') {
+      this.props.requestModels();
     }
+    // if (this.props.selected === '') {
+    //   this.props.requestModels().then((data) => {
+    //     if (!data.error) {
+    //       const title = Object.keys(this.props.models)[0];
+    //       this.props.setModel(title);
+    //       browserHistory.push(title);
+    //     }
+    //   });
+    // }
   }
 
   onClickModel(model) {

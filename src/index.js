@@ -12,20 +12,20 @@ import { logger } from './middleware';
 
 // AdminActions.baseUrl = 'http://reactadmintestapi.herokuapp.com/api';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-// const store = createStoreWithMiddleware(reducer,
-//   window.devToolsExtension && window.devToolsExtension()
-// );
-const store = createStore(
-  reducer,
-  compose(
-    applyMiddleware(
-      ReduxPromise,
-      logger
-    ),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise, logger)(createStore);
+const store = createStoreWithMiddleware(reducer,
+  window.devToolsExtension && window.devToolsExtension()
 );
+// const store = createStore(
+//   reducer,
+//   compose(
+//     applyMiddleware(
+//       ReduxPromise,
+//       logger
+//     ),
+//     window.devToolsExtension ? window.devToolsExtension() : f => f
+//   )
+// );
 render(
   <Provider store={store}>
     <Router history={browserHistory} routes={routes(store)} />
