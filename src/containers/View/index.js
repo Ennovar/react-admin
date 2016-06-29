@@ -12,34 +12,34 @@ import SelectField from '../../components/SelectField';
 
 import './style.scss';
 
-const entry = {
-  id: 7,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500,
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7,
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA',
-  },
-  io: {
-    title: 'I/O',
-    value: 6,
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: true,
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5,
-  },
-};
+// const entry = {
+//   id: 7,
+//   title: '500GB 7K RPM',
+//   capacity: {
+//     title: 'Capacity',
+//     value: 500,
+//   },
+//   rpm: {
+//     title: 'RPM',
+//     value: 7,
+//   },
+//   connection_type: {
+//     title: 'Connection Type',
+//     value: 'SATA',
+//   },
+//   io: {
+//     title: 'I/O',
+//     value: 6,
+//   },
+//   solid_state: {
+//     title: 'Solid State',
+//     value: true,
+//   },
+//   phy_size: {
+//     title: 'Physical Size',
+//     value: 2.5,
+//   },
+// };
 
 class View extends Component {
 
@@ -60,7 +60,10 @@ class View extends Component {
   render() {
     const {
       mode,
+      entry,
     } = this.props;
+
+    console.log(entry);
 
     return (
       <ul id="field" className="list-group">
@@ -68,7 +71,6 @@ class View extends Component {
           <h3 className="list-group-item-heading text-center">{entry.title || 'Title'}</h3>
         </li>
         {Object.keys(entry).map((key) => {
-          console.log(typeof entry[key].value);
           if (typeof entry[key].value === 'boolean') {
             return (
               <BooleanField
@@ -123,7 +125,7 @@ function mapStatetoProps(state) {
   return {
     selected: state.entry,
     mode: state.mode,
-  //  entry: state.models[state.model].entries[state.entry],
+    entry: state.models[state.model].entries[state.entry],
   };
 }
 

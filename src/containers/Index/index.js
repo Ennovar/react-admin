@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
 // User imports
-import {  requestEntries } from '../../actions/index';
+import {  requestEntries, setEntry } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 import './style.scss';
 
@@ -216,16 +216,12 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    console.log()
     this.props.requestEntries(this.props.model);
   }
 
   onClickEntry(id) {
     this.props.setEntry(id);
     browserHistory.push(makeURL(this.props.title) + '/' + id);
-  }
-
-  componentWillReceiveProps() {
   }
 
   // Render method
@@ -265,8 +261,6 @@ Index.propTypes = {
 };
 
 function mapStatetoProps(state) {
-  console.log('MODEL', state.model);
-  console.log('ENTRIES', state.models[state.model]);
   return {
     model: state.model,
     entries: state.models[state.model].entries,
@@ -275,7 +269,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ requestEntries }, dispatch);
+  return bindActionCreators({ requestEntries, setEntry }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Index);

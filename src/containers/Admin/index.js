@@ -6,7 +6,7 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { requestModels } from '../../actions/';
+import { requestModels, requestEntries, setEntry } from '../../actions/';
 // import { getModels, setModel, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 
@@ -475,8 +475,9 @@ class Admin extends Component {
 
     // url contains an entry id
     if (this.props.params.entry) {
-      // this.props.getEntries();
+      this.props.requestEntries();
       // Select a model
+      this.props.setEntry(Number(this.props.params.entry));
     }
   }
 
@@ -520,6 +521,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       requestModels,
+      requestEntries,
+      setEntry
     }, dispatch);
 }
 

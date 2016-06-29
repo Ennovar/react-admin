@@ -52,7 +52,7 @@ export function reducer(state = initialState, action) {
     case 'SET_MODEL':
       return { ...state, model: action.payload };
     case 'SET_ENTRY':
-      return { ...state, selected_entry: action.payload };
+      return { ...state, entry: action.payload };
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
     case RECEIVE_MODELS: {
