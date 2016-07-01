@@ -9,198 +9,6 @@ import {  requestEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 import './style.scss';
 
-// const entries = [
-//   {
-//     id: 1,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 2,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 3,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 4,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 5,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 6,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   }, {
-//     id: 7,
-//     title: '500GB 7K RPM',
-//     capacity: {
-//       title: 'Capacity',
-//       value: 500,
-//     },
-//     rpm: {
-//       title: 'RPM',
-//       value: 7,
-//     },
-//     connection_type: {
-//       title: 'Connection Type',
-//       value: 'SATA',
-//     },
-//     io: {
-//       title: 'IO',
-//       value: 6,
-//     },
-//     solid_state: {
-//       title: 'Solid State',
-//       value: false,
-//     },
-//     phy_size: {
-//       title: 'Physical Size',
-//       value: 2.5,
-//     },
-//   },
-// ];
 
 class Index extends Component {
 
@@ -216,8 +24,9 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    console.log()
-    this.props.requestEntries(this.props.model);
+    if (this.props.model) {
+      this.props.requestEntries();
+    }
   }
 
   onClickEntry(id) {
@@ -265,8 +74,6 @@ Index.propTypes = {
 };
 
 function mapStatetoProps(state) {
-  console.log('MODEL', state.model);
-  console.log('ENTRIES', state.models[state.model]);
   return {
     model: state.model,
     entries: state.models[state.model].entries,

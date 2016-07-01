@@ -47,7 +47,7 @@ class Models extends Component {
   onClickModel(model) {
     const url = makeURL(model);
     this.props.setModel(model);
-    this.props.requestEntries(url);
+    // this.props.requestEntries(url);
     browserHistory.push(`/${url}`);
   }
 
@@ -100,8 +100,8 @@ Models.propTypes = {
 
 function mapStatetoProps(state) {
   return {
-    selected: state.model,
-    models: state.models,
+    // selected: state.model,
+    models: state.reducers.models,
   };
 }
 

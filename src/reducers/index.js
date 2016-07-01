@@ -2,24 +2,34 @@ import { makeURL } from '../helpers/functions';
 import {
   RECEIVE_MODELS,
   RECEIVE_ENTRIES,
+  REDUX_INIT,
 } from '../constants';
 
+// const initialState = {
+//   model: 'no_models',
+//   entry: -1,
+//   mode: '',
+//   baseUrl: 'http://reactadmintestapi.herokuapp.com/api/',
+//   adminUrl: 'http://reactadmintestapi.herokuapp.com/api/admin',
+//   models: {
+//     no_models: {
+//       title: 'No Models',
+//       entry_selected: 0,
+//       entries: {
+//         0: {
+//           title: 'No Model Selected',
+//         },
+//       },
+//     },
+//   },
+// };
 const initialState = {
-  model: 'no_models',
+  model: '',
   entry: -1,
   mode: '',
   baseUrl: 'http://reactadmintestapi.herokuapp.com/api/',
   adminUrl: 'http://reactadmintestapi.herokuapp.com/api/admin',
   models: {
-    no_models: {
-      title: 'No Models',
-      entry_selected: 0,
-      entries: {
-        0: {
-          title: 'No Model Selected',
-        },
-      },
-    },
   },
 };
 
@@ -46,13 +56,15 @@ function toObj(array, param) {
   return outer;
 }
 
-export function reducer(state = initialState, action) {
+export function reducers(state = initialState, action) {
   console.log(action);
   switch (action.type) {
+    case REDUX_INIT:
+
     case 'SET_MODEL':
       return { ...state, model: action.payload };
     case 'SET_ENTRY':
-      return { ...state, selected_entry: action.payload };
+      return { ...state, entry: action.payload };
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
     case RECEIVE_MODELS: {
@@ -63,7 +75,8 @@ export function reducer(state = initialState, action) {
       return newState;
     }
     case RECEIVE_ENTRIES: {
-      return Object.assign({}, state, { models: Object.assign({}, state.models, { [state.model]: { ...state.models[state.model], entries: toObj(action.payload.data, 'id') } }) });
+      const newState = { ...state, model: action.meta.model };
+      return Object.assign({}, newState, { models: Object.assign({}, newState.models, { [newState.model]: { ...newState.models[newState.model], entries: toObj(action.payload.data, 'id') } }) });
     }
     default:
       return state;
