@@ -4,14 +4,6 @@
 import React from 'react';
 import Admin from '../containers/Admin';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { reducer } from '../reducers';
-import 'bootstrap-loader';
-
-const store = createStore(reducer,
-  window.devToolsExtension && window.devToolsExtension()
-);
 
 describe('ItemList', () => {
   // const router = routerObject()
