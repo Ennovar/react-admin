@@ -14,11 +14,15 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _admin_actions = require('../../actions/admin_actions');
+var _index = require('../../actions/index');
 
-var _InputField = require('../../components/InputField');
+var _TextField = require('../../components/TextField');
 
-var _InputField2 = _interopRequireDefault(_InputField);
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _NumberField = require('../../components/NumberField');
+
+var _NumberField2 = _interopRequireDefault(_NumberField);
 
 var _BooleanField = require('../../components/BooleanField');
 
@@ -28,7 +32,7 @@ var _SelectField = require('../../components/SelectField');
 
 var _SelectField2 = _interopRequireDefault(_SelectField);
 
-require('./style.css');
+require('./style.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68,32 +72,29 @@ var New = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        null,
+        'ul',
+        { id: 'field', className: 'list-group' },
         _react2.default.createElement(
-          'ul',
-          { id: 'field', className: 'list-group' },
+          'li',
+          { className: 'list-group-item' },
           _react2.default.createElement(
-            'li',
-            { className: 'list-group-item' },
-            _react2.default.createElement(
-              'h3',
-              { className: 'list-group-item-heading text-center' },
-              'New ',
-              this.props.selected
-            )
-          ),
-          _react2.default.createElement(_BooleanField2.default, { title: 'Property 1' }),
-          _react2.default.createElement(_InputField2.default, { title: 'Property 2', type: 'string' }),
-          _react2.default.createElement(_SelectField2.default, { title: 'Property 3' }),
+            'h3',
+            { className: 'list-group-item-heading text-center' },
+            'New ',
+            this.props.selected
+          )
+        ),
+        _react2.default.createElement(_BooleanField2.default, { title: 'Property 1', mode: 'view', changeMode: this.props.changeMode }),
+        _react2.default.createElement(_TextField2.default, { title: 'Property 2', mode: 'new' }),
+        _react2.default.createElement(_NumberField2.default, { title: 'Property 2', mode: 'new' }),
+        _react2.default.createElement(_SelectField2.default, { title: 'Property 3', mode: 'edit' }),
+        _react2.default.createElement(
+          'li',
+          { className: 'list-group-item clearfix' },
           _react2.default.createElement(
-            'li',
-            { className: 'list-group-item clearfix' },
-            _react2.default.createElement(
-              'button',
-              { id: 'save', className: 'btn btn-primary' },
-              'Save'
-            )
+            'button',
+            { id: 'save', className: 'btn btn-primary' },
+            'Save'
           )
         )
       );
@@ -104,7 +105,8 @@ var New = function (_Component) {
 }(_react.Component);
 
 New.propTypes = {
-  selected: _react2.default.PropTypes.string
+  selected: _react2.default.PropTypes.number,
+  changeMode: _react2.default.PropTypes.func
 };
 
 function mapStatetoProps(state) {
@@ -114,7 +116,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ doSomething: _admin_actions.doSomething }, dispatch);
+  return (0, _redux.bindActionCreators)({ doSomething: _index.doSomething, changeMode: _index.changeMode }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(New);

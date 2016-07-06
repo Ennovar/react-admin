@@ -13,6 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 describe('AdminActions', function () {
   it('should get models', function () {
     _actions2.default.baseUrl = 'http://reactadmintestapi.herokuapp.com/api/';
+    console.log(_actions2.default.baseUrl);
     _actions2.default.getModels();
   });
 });

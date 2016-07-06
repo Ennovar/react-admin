@@ -54,10 +54,10 @@ class Admin extends Component {
       <div className="container-fluid">
         <div className="row">
           <div id="menu" className="col-xs-6 col-sm-3">
-            <Models models={this.props.models} selected={this.props.params.model}/>
+            <Models />
           </div>
           <div id="content" className="col-xs-6 col-sm-9">
-            {/*this.props.children */}
+            {this.props.children}
           </div>
         </div>
       </div>

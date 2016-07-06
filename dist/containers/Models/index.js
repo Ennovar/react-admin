@@ -14,9 +14,13 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _admin_actions = require('../../actions/admin_actions');
+var _reactRouter = require('react-router');
 
-require('./style.css');
+var _actions = require('../../actions/');
+
+var _functions = require('../../helpers/functions');
+
+require('./style.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,9 +32,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 // User imports
+// -- Functions
+// import { getModels, getEntry, setModel } from '../../actions';
 
-
-// Components
+// -- Styles
 
 
 var Models = function (_Component) {
@@ -47,7 +52,7 @@ var Models = function (_Component) {
       selected: ''
     };
 
-    _this.onSelect = _this.onSelect.bind(_this);
+    _this.onClickModel = _this.onClickModel.bind(_this);
     _this.onClickNew = _this.onClickNew.bind(_this);
     return _this;
   }
@@ -55,16 +60,34 @@ var Models = function (_Component) {
   _createClass(Models, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.changeSelection(0);
+      // this.props.getModels().then(this.props.changeModel(makeURL(this.props.models[0].title)));
+
+      // url == /admin, so set the first model to be the selected model
+      if (this.props.selected === 'no_models') {
+        this.props.requestModels();
+      }
+      // if (this.props.selected === '') {
+      //   this.props.requestModels().then((data) => {
+      //     if (!data.error) {
+      //       const title = Object.keys(this.props.models)[0];
+      //       this.props.setModel(title);
+      //       browserHistory.push(title);
+      //     }
+      //   });
+      // }
     }
   }, {
-    key: 'onSelect',
-    value: function onSelect(index) {
-      this.props.changeSelection(index);
+    key: 'onClickModel',
+    value: function onClickModel(model) {
+      var url = (0, _functions.makeURL)(model);
+      this.props.setModel(model);
+      // this.props.requestEntries(url);
+      _reactRouter.browserHistory.push('/' + url);
     }
   }, {
     key: 'onClickNew',
     value: function onClickNew(e) {
+      console.log(e.target.className);
     }
 
     // Render method
@@ -91,9 +114,9 @@ var Models = function (_Component) {
             'Models'
           )
         ),
-        models.map(function (model, index) {
+        Object.keys(models).map(function (model, index) {
           var active = '';
-          if (selected === index) {
+          if (model === selected) {
             active = ' active';
           }
 
@@ -104,11 +127,11 @@ var Models = function (_Component) {
               key: index,
               className: 'list-group-item' + active,
               onClick: function onClick() {
-                return _this2.onSelect(index);
+                return _this2.onClickModel(models[model].tag);
               }
             },
             _react2.default.createElement('i', { className: 'fa fa-plus fa-fw', onClick: _this2.onClickNew }),
-            model.title
+            models[model].title
           );
         })
       );
@@ -119,19 +142,26 @@ var Models = function (_Component) {
 }(_react.Component);
 
 Models.propTypes = {
-  changeSelection: _react2.default.PropTypes.func.isRequired,
-  models: _react2.default.PropTypes.array.isRequired,
-  selected: _react2.default.PropTypes.number
+  setModel: _react2.default.PropTypes.func,
+  models: _react2.default.PropTypes.object,
+  selected: _react2.default.PropTypes.string,
+  requestModels: _react2.default.PropTypes.func,
+  requestEntries: _react2.default.PropTypes.func
 };
 
 function mapStatetoProps(state) {
   return {
-    selected: state.selected
+    // selected: state.model,
+    models: state.reducers.models
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ changeSelection: _admin_actions.changeSelection }, dispatch);
+  return (0, _redux.bindActionCreators)({
+    setModel: _actions.setModel,
+    requestModels: _actions.requestModels,
+    requestEntries: _actions.requestEntries
+  }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(Models);

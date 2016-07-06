@@ -10,7 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-require('./style.css');
+require('./style.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,18 +35,45 @@ var BooleanField = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BooleanField).call(this, props));
 
     _this.state = {
-      value: false
+      value: false,
+      mode: ''
     };
 
     _this.onClickTrue = _this.onClickTrue.bind(_this);
     _this.onClickFalse = _this.onClickFalse.bind(_this);
+    _this.onClickEdit = _this.onClickEdit.bind(_this);
     return _this;
   }
 
-  // User selects false
-
-
   _createClass(BooleanField, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      if (this.props.mode === 'new') {
+        this.setState({ mode: 'new' });
+      } else {
+        this.setState({ mode: 'view' });
+      }
+
+      if (this.props.value) {
+        this.setState({ value: this.props.value });
+      }
+      // Set the value if in edit or view mode
+    }
+  }, {
+    key: 'onClickEdit',
+    value: function onClickEdit() {
+      if (this.state.mode === 'view') {
+        this.setState({ mode: 'edit' });
+      } else if (this.state.mode === 'edit') {
+        this.setState({ mode: 'view' });
+      } else {
+        // Do nothing
+      }
+    }
+
+    // User selects false
+
+  }, {
     key: 'onClickTrue',
     value: function onClickTrue() {
       this.setState({ value: true });
@@ -65,13 +92,50 @@ var BooleanField = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _state = this.state;
+      var mode = _state.mode;
+      var value = _state.value;
+
       var btnT = 'default';
       var btnF = 'default';
+      var content = void 0;
+      var icon = void 0;
 
       if (this.state.value) {
         btnT = 'primary';
       } else {
         btnF = 'primary';
+      }
+
+      if (mode === 'edit' || mode === 'new') {
+        content = _react2.default.createElement(
+          'li',
+          { className: 'list-group-item' },
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-' + btnT, onClick: this.onClickTrue },
+            'True'
+          ),
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-' + btnF, onClick: this.onClickFalse },
+            'False'
+          )
+        );
+        icon = 'check';
+      } else if (mode === 'view') {
+        content = _react2.default.createElement(
+          'li',
+          { className: 'list-group-item' },
+          _react2.default.createElement(
+            'p',
+            { className: 'list-group-item-text' },
+            value ? 'True' : 'False'
+          )
+        );
+        icon = 'pencil';
+      } else {
+        // Do nothing
       }
 
       return _react2.default.createElement(
@@ -84,25 +148,13 @@ var BooleanField = function (_Component) {
             'li',
             { className: 'list-group-item' },
             _react2.default.createElement(
-              'h3',
+              'h4',
               { className: 'list-group-item-heading' },
-              this.props.title
+              this.props.title,
+              mode !== 'new' && _react2.default.createElement('i', { className: 'fa fa-' + icon + ' pull-right', onClick: this.onClickEdit })
             )
           ),
-          _react2.default.createElement(
-            'li',
-            { className: 'list-group-item' },
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-' + btnT, onClick: this.onClickTrue },
-              'True'
-            ),
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-' + btnF, onClick: this.onClickFalse },
-              'False'
-            )
-          )
+          content
         )
       );
     }
@@ -112,7 +164,9 @@ var BooleanField = function (_Component) {
 }(_react.Component);
 
 BooleanField.propTypes = {
-  title: _react2.default.PropTypes.string.isRequired
+  title: _react2.default.PropTypes.string.isRequired,
+  mode: _react2.default.PropTypes.string,
+  value: _react2.default.PropTypes.bool
 };
 
 exports.default = BooleanField;

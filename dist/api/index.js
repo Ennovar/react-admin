@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getModels = getModels;
-exports.getIndex = getIndex;
+exports.getEntries = getEntries;
 exports.getShow = getShow;
 exports.postCreate = postCreate;
 exports.putUpdate = putUpdate;
@@ -14,9 +14,9 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _constants = require('../constants');
 
-var base_url = 'http://localhost:3000/api/admin';
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * getModels - get all of the models that need to be manipulated by the admin panel
@@ -24,42 +24,13 @@ var base_url = 'http://localhost:3000/api/admin';
  *
  * @return {type}  description
  */
-function getModels() {
-  _axios2.default.get(base_url);
-  // action.data
-
-  // return {
-  //   type: 'SOME_ACTION_TYPE',
-  //   data: [
-  //     {
-  //       title: 'Cars',
-  //       crud: {
-  //         create: 'url to POST to to create a car',
-  //         index: 'url to GET all cars',
-  //         show: 'url to GET a specific car EXAMPLE: http://bobscars.com/api/cars/:id with id being a convention to get the car with that id',
-  //         update: 'url to PUT an update to a specific car while following the same conventions as #show ^^',
-  //         delete: 'url to DELETE a specific car with the id convention above ^^^'
-  //       }
-  //     }
-  //   ]
-  // }
-  //   action.payload.data
-
-  // return {
-  //   type: 'SOME_ACTION_TYPE',
-  //   payload: [
-  //     {
-  //       title: 'Cars',
-  //       crud: {
-  //         create: 'url to POST to to create a car',
-  //         index: 'url to GET all cars',
-  //         show: 'url to GET a specific car EXAMPLE: http://bobscars.com/api/cars/:id with id being a convention to get the car with that id',
-  //         update: 'url to PUT an update to a specific car while following the same conventions as #show ^^',
-  //         delete: 'url to DELETE a specific car with the id convention above ^^^'
-  //       }
-  //     }
-  //   ]
-  // }
+function getModels(url) {
+  console.log(url);
+  var payload = _axios2.default.get(url);
+  return {
+    type: _constants.RECEIVE_MODELS,
+    payload: payload
+  };
 }
 
 /**
@@ -68,10 +39,15 @@ function getModels() {
  * @param  {int} modelIndex index of model to GET index of
  * @return {promise}            promise
  */
-function getIndex(modelIndex) {
+function getEntries(url, model) {
+  console.log(url);
+  var payload = _axios2.default.get(url);
   return {
-    type: 'MODEL_AT_INDEX',
-    index: modelIndex
+    type: _constants.RECEIVE_ENTRIES,
+    payload: payload,
+    meta: {
+      model: model
+    }
   };
 }
 

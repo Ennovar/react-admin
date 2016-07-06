@@ -34,197 +34,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // User imports
 
 
-var entries = [{
-  id: 1,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 2,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 3,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 4,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 5,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 6,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}, {
-  id: 7,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA'
-  },
-  io: {
-    title: 'IO',
-    value: 6
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: false
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5
-  }
-}];
-
 var Index = function (_Component) {
   _inherits(Index, _Component);
 
@@ -246,7 +55,9 @@ var Index = function (_Component) {
   _createClass(Index, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.getEntries(this.props.model);
+      if (this.props.model) {
+        this.props.requestEntries();
+      }
     }
   }, {
     key: 'onClickEntry',
@@ -266,7 +77,7 @@ var Index = function (_Component) {
       var _this2 = this;
 
       var _props = this.props;
-      var items = _props.items;
+      var entries = _props.entries;
       var title = _props.title;
 
 
@@ -282,19 +93,19 @@ var Index = function (_Component) {
             title || 'Title'
           )
         ),
-        entries.map(function (entry) {
+        Object.keys(entries).map(function (entry) {
           return _react2.default.createElement(
             'li',
             {
               id: 'select',
-              key: entry.id,
+              key: entries[entry].id,
               className: 'list-group-item',
               onClick: function onClick() {
-                return _this2.onClickEntry(entry.id);
+                return _this2.onClickEntry(entries[entry].id);
               }
             },
             _react2.default.createElement('i', { className: 'fa fa-pencil fa-fw', onClick: _this2.onClickNew }),
-            entry.title
+            entries[entry].title
           );
         })
       );
@@ -306,8 +117,10 @@ var Index = function (_Component) {
 
 Index.propTypes = {
   items: _react2.default.PropTypes.object,
+  mode: _react2.default.PropTypes.string,
   entries: _react2.default.PropTypes.object,
-  title: _react2.default.PropTypes.string
+  title: _react2.default.PropTypes.string,
+  requestEntries: _react2.default.PropTypes.func
 };
 
 function mapStatetoProps(state) {
@@ -319,7 +132,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ setEntry: _index.setEntry, getEntries: _index.getEntries }, dispatch);
+  return (0, _redux.bindActionCreators)({ requestEntries: _index.requestEntries }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(Index);

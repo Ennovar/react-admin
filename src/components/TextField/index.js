@@ -47,12 +47,8 @@ class TextField extends Component {
 
   // Render method
   render() {
-    const {
-      title,
-    } = this.props;
-    const {
-      mode, value,
-    } = this.state;
+    const { title } = this.props;
+    const { mode, value } = this.state;
     let content;
     let icon;
 
@@ -73,6 +69,7 @@ class TextField extends Component {
       icon = 'pencil';
     } else {
       content = null;
+      icon = null;
     }
 
     return (

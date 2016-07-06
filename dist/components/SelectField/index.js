@@ -10,11 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Select = require('../Select');
-
-var _Select2 = _interopRequireDefault(_Select);
-
-require('./style.css');
+require('./style.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,19 +56,41 @@ var SelectField = function (_Component) {
             'li',
             { className: 'list-group-item' },
             _react2.default.createElement(
-              'h3',
+              'h4',
               { className: 'list-group-item-heading' },
               this.props.title
             )
           ),
-          _react2.default.createElement(_Select2.default, { title: 'Item 1' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 2' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 3' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 4' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 5' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 6' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 7' }),
-          _react2.default.createElement(_Select2.default, { title: 'Item 8' })
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'list-group-item' },
+            'Item'
+          )
         )
       );
     }
@@ -82,7 +100,8 @@ var SelectField = function (_Component) {
 }(_react.Component);
 
 SelectField.propTypes = {
-  title: _react2.default.PropTypes.string.isRequired
+  title: _react2.default.PropTypes.string,
+  mode: _react2.default.PropTypes.string
 };
 
 exports.default = SelectField;

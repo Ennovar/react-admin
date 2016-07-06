@@ -12,10 +12,10 @@ import {
   setModel,
   setEntry,
 } from '../actions';
+
 function getCRUDFromModelWithTag(tag, models) {
   for (let prop in models) {
     const model = models[prop];
-    console.log(model)
     if (model.tag === tag) {
       return model.crud;
     }
@@ -47,9 +47,7 @@ export const logger = store => next => action => {
       if (shouldGetModels()) {
         store.dispatch(getModels(store.getState().reducers.adminUrl)).then(
           function() {
-            console.log(action.payload.params.model)
             if (shouldGetEntries(action.payload.params.model)) {
-              console.log(store.getState().reducers)
               const crud = getCRUDFromModelWithTag(action.payload.params.model, store.getState().reducers.models);
               store.dispatch(getEntries(store.getState().reducers.baseUrl + crud.index, action.payload.params.model)).then(
                 function() {

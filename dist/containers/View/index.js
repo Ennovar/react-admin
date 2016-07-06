@@ -108,6 +108,7 @@ var View = function (_Component) {
 
       var mode = this.props.mode;
 
+
       return _react2.default.createElement(
         'ul',
         { id: 'field', className: 'list-group' },
@@ -121,6 +122,7 @@ var View = function (_Component) {
           )
         ),
         Object.keys(entry).map(function (key) {
+          console.log(_typeof(entry[key].value));
           if (typeof entry[key].value === 'boolean') {
             return _react2.default.createElement(_BooleanField2.default, {
               key: entry[key].title,

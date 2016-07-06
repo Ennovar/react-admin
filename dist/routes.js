@@ -16,13 +16,17 @@ var _Admin = require('./containers/Admin');
 
 var _Admin2 = _interopRequireDefault(_Admin);
 
-var _Items = require('./containers/Items');
+var _Index = require('./containers/Index');
 
-var _Items2 = _interopRequireDefault(_Items);
+var _Index2 = _interopRequireDefault(_Index);
 
 var _New = require('./containers/New');
 
 var _New2 = _interopRequireDefault(_New);
+
+var _View = require('./containers/View');
+
+var _View2 = _interopRequireDefault(_View);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,12 +67,14 @@ var SomeComponent = function (_React$Component) {
   return SomeComponent;
 }(_react2.default.Component);
 
-exports.default = _react2.default.createElement(
-  _reactRouter.Route,
-  { path: '/', component: _Admin2.default },
-  _react2.default.createElement(_reactRouter.IndexRoute, { component: SomeComponent }),
-  _react2.default.createElement(_reactRouter.Route, { path: ':model', component: _Items2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: ':model/new', component: _New2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: ':model/edit', component: _New2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: ':model/:id', component: _New2.default })
-);
+exports.default = function (store) {
+  return _react2.default.createElement(
+    _reactRouter.Route,
+    { path: '/', component: _Admin2.default, store: store },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Index2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: ':model', component: _Index2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: ':model/new', component: _New2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: ':model/:entry', component: _View2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: ':model/:entry/edit', component: _View2.default })
+  );
+};

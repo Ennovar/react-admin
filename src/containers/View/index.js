@@ -12,34 +12,34 @@ import SelectField from '../../components/SelectField';
 
 import './style.scss';
 
-const entry = {
-  id: 7,
-  title: '500GB 7K RPM',
-  capacity: {
-    title: 'Capacity',
-    value: 500,
-  },
-  rpm: {
-    title: 'RPM',
-    value: 7,
-  },
-  connection_type: {
-    title: 'Connection Type',
-    value: 'SATA',
-  },
-  io: {
-    title: 'I/O',
-    value: 6,
-  },
-  solid_state: {
-    title: 'Solid State',
-    value: true,
-  },
-  phy_size: {
-    title: 'Physical Size',
-    value: 2.5,
-  },
-};
+// const entry = {
+//   id: 7,
+//   title: '500GB 7K RPM',
+//   capacity: {
+//     title: 'Capacity',
+//     value: 500,
+//   },
+//   rpm: {
+//     title: 'RPM',
+//     value: 7,
+//   },
+//   connection_type: {
+//     title: 'Connection Type',
+//     value: 'SATA',
+//   },
+//   io: {
+//     title: 'I/O',
+//     value: 6,
+//   },
+//   solid_state: {
+//     title: 'Solid State',
+//     value: true,
+//   },
+//   phy_size: {
+//     title: 'Physical Size',
+//     value: 2.5,
+//   },
+// };
 
 class View extends Component {
 
@@ -56,6 +56,55 @@ class View extends Component {
     this.props.setMode('edit');
   }
 
+  renderAttributes() {
+    // Make sure there is an entry with attributes to render
+    if (this.props.entry) {
+      const { entry } = this.props;
+
+      const attributeList = Object.keys(entry).map((key) => {
+        if (typeof entry[key] === 'boolean') {
+          return (
+            <BooleanField
+              key={entry[key].title}
+              mode={this.props.mode}
+              title={entry[key].title}
+              value={entry[key].value}
+            />
+          );
+        } else if (typeof entry[key] === 'string') {
+          return (
+            <TextField
+              key={key}
+              title={key}
+              mode={this.props.mode}
+              value={entry[key]}
+            />
+          );
+        } else if (typeof entry[key] === 'number') {
+          return (
+            <NumberField
+              key={key}
+              title={key}
+              mode={this.props.mode}
+              value={entry[key]}
+            />
+          );
+        } else if (typeof entry[key] === 'object') {
+          return (
+            <SelectField
+              key={key}
+              title={key}
+              mode={this.props.mode}
+              value={entry[key]}
+            />
+          );
+        }
+      });
+      return attributeList;
+    }
+    return null;
+  }
+
   // Render method
   render() {
     const {
@@ -65,49 +114,9 @@ class View extends Component {
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
-          <h3 className="list-group-item-heading text-center">{entry.title || 'Title'}</h3>
+          <h3 className="list-group-item-heading text-center">{this.props.entry ? this.props.entry.title : 'Title'}</h3>
         </li>
-        {Object.keys(entry).map((key) => {
-          console.log(typeof entry[key].value);
-          if (typeof entry[key].value === 'boolean') {
-            return (
-              <BooleanField
-                key={entry[key].title}
-                mode={this.props.mode}
-                title={entry[key].title}
-                value={entry[key].value}
-              />
-            );
-          } else if (typeof entry[key].value === 'string') {
-            return (
-              <TextField
-                key={entry[key].title}
-                title={entry[key].title}
-                mode={this.props.mode}
-                value={entry[key].value}
-              />
-            );
-          } else if (typeof entry[key].value === 'number') {
-            return (
-              <NumberField
-                key={entry[key].title}
-                title={entry[key].title}
-                mode={this.props.mode}
-                value={entry[key].value}
-              />
-            );
-          } else if (typeof entry[key].value === 'object') {
-            return (
-              <SelectField
-                key={entry[key].title}
-                title={entry[key].title}
-                mode={this.props.mode}
-                value={entry[key].value}
-              />
-            );
-          }
-          return null;
-        })}
+        {this.renderAttributes()}
       </ul>
     );
   }
@@ -120,10 +129,20 @@ View.propTypes = {
 };
 
 function mapStatetoProps(state) {
+  const { models, model } = state.reducers;
+  const selected = state.reducers.entry;
+  let entry = {};
+
+  if (selected !== -1) {
+    console.log(models[model]);
+    entry = models[model].entries[selected];
+    return {
+      selected,
+      entry,
+    };
+  }
   return {
-    selected: state.entry,
-    mode: state.mode,
-  //  entry: state.models[state.model].entries[state.entry],
+    selected,
   };
 }
 

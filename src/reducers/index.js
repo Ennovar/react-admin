@@ -23,13 +23,23 @@ import {
 //     },
 //   },
 // };
+
 const initialState = {
-  model: '',
   entry: -1,
   mode: '',
-  baseUrl: 'http://reactadmintestapi.herokuapp.com/api/',
+  model: 'Loading...',
+  baseUrl: 'http://reactadmintestapi.herokuapp.com/api',
   adminUrl: 'http://reactadmintestapi.herokuapp.com/api/admin',
   models: {
+    'Loading...': {
+      title: 'Loading...',
+      entries: {
+        0: {
+          id: 1,
+          title: '',
+        },
+      },
+    },
   },
 };
 
@@ -57,10 +67,7 @@ function toObj(array, param) {
 }
 
 export function reducers(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
-    case REDUX_INIT:
-
     case 'SET_MODEL':
       return { ...state, model: action.payload };
     case 'SET_ENTRY':
@@ -69,7 +76,7 @@ export function reducers(state = initialState, action) {
       return { ...state, mode: action.payload };
     case RECEIVE_MODELS: {
       let newState = { ...state, models: toObj(action.payload.data.models, 'tag') }
-      if (state.model === 'no_models') {
+      if (state.model === '') {
         newState = { ...newState, model: Object.keys(newState.models)[0] };
       }
       return newState;

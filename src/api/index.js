@@ -11,7 +11,6 @@ import {
  * @return {type}  description
  */
 export function getModels(url) {
-  console.log(url)
   const payload = axios.get(url)
   return {
     type: RECEIVE_MODELS,
@@ -26,7 +25,6 @@ export function getModels(url) {
  * @return {promise}            promise
  */
 export function getEntries(url, model) {
-  console.log(url)
   const payload = axios.get(url)
   return {
     type: RECEIVE_ENTRIES,
