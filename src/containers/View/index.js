@@ -60,12 +60,13 @@ class View extends Component {
     // Make sure there is an entry with attributes to render
     if (this.props.entry) {
       const { entry } = this.props;
+    //  console.log('ENTRY', entry);
 
       const attributeList = Object.keys(entry).map((key) => {
         if (typeof entry[key] === 'boolean') {
           return (
             <BooleanField
-              key={entry[key].title}
+              key={`${key}${entry.id}`}
               mode={this.props.mode}
               title={entry[key].title}
               value={entry[key].value}
@@ -74,7 +75,7 @@ class View extends Component {
         } else if (typeof entry[key] === 'string') {
           return (
             <TextField
-              key={key}
+              key={`${key}${entry.id}`}
               title={key}
               mode={this.props.mode}
               value={entry[key]}
@@ -83,7 +84,7 @@ class View extends Component {
         } else if (typeof entry[key] === 'number') {
           return (
             <NumberField
-              key={key}
+              key={`${key}${entry.id}`}
               title={key}
               mode={this.props.mode}
               value={entry[key]}
@@ -92,7 +93,7 @@ class View extends Component {
         } else if (typeof entry[key] === 'object') {
           return (
             <SelectField
-              key={key}
+              key={`${key}${entry.id}`}
               title={key}
               mode={this.props.mode}
               value={entry[key]}
@@ -133,8 +134,7 @@ function mapStatetoProps(state) {
   const selected = state.reducers.entry;
   let entry = {};
 
-  if (selected !== -1) {
-    console.log(models[model]);
+  if (selected !== -1 && models[model].entries) {
     entry = models[model].entries[selected];
     return {
       selected,

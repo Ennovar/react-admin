@@ -11,7 +11,8 @@ import {
  * @return {type}  description
  */
 export function getModels(url) {
-  const payload = axios.get(url)
+  const payload = axios.get(url);
+  
   return {
     type: RECEIVE_MODELS,
     payload,
@@ -19,13 +20,15 @@ export function getModels(url) {
 }
 
 /**
- * getIndex - sends a request to get the specified model that is at the AdminAPI.models array index specified by modelIndex
+ * getIndex - sends a request to get the specified model that is at the AdminAPI.models
+ * array index specified by modelIndex
  *
  * @param  {int} modelIndex index of model to GET index of
  * @return {promise}            promise
  */
 export function getEntries(url, model) {
-  const payload = axios.get(url)
+  const payload = axios.get(url);
+
   return {
     type: RECEIVE_ENTRIES,
     payload,
@@ -36,7 +39,8 @@ export function getEntries(url, model) {
 }
 
 /**
- * getShow - sends a request to get the specified model that is at the AdminAPI.models array index specified by modelIndex and the entry with id
+ * getShow - sends a request to get the specified model that is at the AdminAPI.models
+ * array index specified by modelIndex and the entry with id
  *
  * @param  {type} modelIndex index of model to GET index of
  * @param  {type} id         id of model to GET
@@ -47,7 +51,8 @@ export function getShow(modelIndex, id) {
 }
 
 /**
- * postCreate - sends a request to create a new model specified by newModel and the modelIndex in the AdminAPI.models array index
+ * postCreate - sends a request to create a new model specified by newModel and
+ * the modelIndex in the AdminAPI.models array index
  *
  * @param  {type} modelIndex index of model to POST create
  * @param  {type} newModel   the new model to be created, including attributes
@@ -58,7 +63,8 @@ export function postCreate(modelIndex, newModel) {
 }
 
 /**
- * putUpdate - sends a request to update an exhisting model specified by id and the modelIndex in the AdminAPI.models array index
+ * putUpdate - sends a request to update an exhisting model specified by id and
+ * the modelIndex in the AdminAPI.models array index
  *
  * @param  {type} modelIndex index of model to PUT update
  * @param  {type} updatedModel updated attributes for model
@@ -70,7 +76,8 @@ export function putUpdate(modelIndex, updatedModel, id) {
 }
 
 /**
- * deleteDelete - sends a request to delete an exhisting model specified by id and the modelIndex in the AdminAPI.models array index
+ * deleteDelete - sends a request to delete an exhisting model specified by id and
+ * the modelIndex in the AdminAPI.models array index
  *
  * @param  {type} modelIndex index of model to DELETE delete
  * @param  {type} id         id of model to DELETE

@@ -43,14 +43,14 @@ const initialState = {
   },
 };
 
-function getIndex(title, array) {
-  for (let i = 0; i < array.length; i++) {
-    if (title === makeURL(array[i].tag)) {
-      return i;
-    }
-  }
-  return -1;
-}
+// function getIndex(title, array) {
+//   for (let i = 0; i < array.length; i++) {
+//     if (title === makeURL(array[i].tag)) {
+//       return i;
+//     }
+//   }
+//   return -1;
+// }
 
 function toObj(array, param) {
   const outer = {};
@@ -75,8 +75,8 @@ export function reducers(state = initialState, action) {
     case 'CHANGE_MODE':
       return { ...state, mode: action.payload };
     case RECEIVE_MODELS: {
-      let newState = { ...state, models: toObj(action.payload.data.models, 'tag') }
-      if (state.model === '') {
+      let newState = { ...state, models: toObj(action.payload.data.models, 'tag') };
+      if (state.model === 'Loading...') {
         newState = { ...newState, model: Object.keys(newState.models)[0] };
       }
       return newState;

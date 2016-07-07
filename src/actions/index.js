@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import {
-  GET_MODELS,
-  GET_ENTRIES,
+  REQUEST_MODELS,
+  REQUEST_ENTRIES,
 } from '../constants';
 
 const baseUrl = 'http://localhost:8000/api/';
@@ -43,13 +43,13 @@ export function setEntry(entry) {
 /* ******************************** GETTERS ******************************** */
 export function requestModels() {
   return {
-    type: GET_MODELS,
+    type: REQUEST_MODELS,
   };
 }
 
 export function requestEntries(modelTag) {
   return {
-    type: GET_ENTRIES,
+    type: REQUEST_ENTRIES,
     meta: {
       modelTag,
     },

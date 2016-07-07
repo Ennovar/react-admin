@@ -18,7 +18,6 @@ const reducer = combineReducers({
   routing: routeParamsReducer,
   reducers,
 });
-console.log(typeof(reducer));
 
 // Sync dispatched route actions to the history
 const createStoreWithMiddleware = applyMiddleware(
