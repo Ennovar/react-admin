@@ -27,13 +27,12 @@ class Models extends Component {
   }
 
   onClickModel(model) {
-    const url = makeURL(model);
-    this.props.setModel(model);
-    browserHistory.push(`/${url}`);
+    browserHistory.push(`/${model}`);
   }
 
-  onClickNew(e) {
-    console.log(e.target.className);
+  onClickNew(model, e) {
+    e.stopPropagation();
+    browserHistory.push(`/${model}/new`);
   }
 
   renderModels() {
@@ -50,7 +49,7 @@ class Models extends Component {
             className={`list-group-item${active} clearfix`}
             onClick={() => this.onClickModel(models[model].tag)}
           >
-            <i className="fa fa-plus fa-fw" onClick={this.onClickNew} />
+            <i className="fa fa-plus fa-fw" onClick={(e) => this.onClickNew(models[model].tag, e)} />
             {models[model].title}
           </li>
         );
@@ -63,7 +62,7 @@ class Models extends Component {
   render() {
     const {
       models,
-      selected,
+      selectedModel,
     } = this.props;
 
     return (
@@ -87,8 +86,8 @@ Models.propTypes = {
 
 function mapStatetoProps(state) {
   return {
-    selected: state.reducers.model,
-    models: state.reducers.models,
+    selected: state.reducer.selectedModel,
+    models: state.reducer.models,
   };
 }
 

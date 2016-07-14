@@ -1,13 +1,16 @@
 // Libary imports
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 
 // User imports
-import { setMode } from '../../actions/index';
+import { toObj } from '../../helpers/functions';
+import { setMode, setupUpdate, requestDelete } from '../../actions/index';
 import BooleanField from '../../components/BooleanField';
 import NumberField from '../../components/NumberField';
 import TextField from '../../components/TextField';
+import StringField from '../../components/StringField';
 import SelectField from '../../components/SelectField';
 
 import './style.scss';
@@ -48,57 +51,101 @@ class View extends Component {
     super(props);
 
     this.state = {
-      value: false,
+      updated: false,
+      putData: {},
     };
+
+    this.update = this.update.bind(this);
+    this.onUpdateClick = this.onUpdateClick.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentWillMount() {
-    this.props.setMode('edit');
+    this.props.setMode('view');
+  }
+
+  onUpdateClick() {
+    const { entry, setupUpdate, model } = this.props;
+    const data = {};
+    const type = model.slice(0, -1);
+    data[type] = this.state.putData;
+
+    setupUpdate(data, entry.id).then(() =>
+      browserHistory.push(`/${model}`)
+    );
+  }
+
+  update(prev, curr, key) {
+    this.setState({ updated: prev !== curr });
+    this.setState({ putData: { ...this.state.putData, [key]: curr } });
+  }
+
+  delete() {
+    const { entry, requestDelete, model } = this.props;
+    requestDelete(entry.id).then(() =>
+      browserHistory.push(`/${model}`)
+    );
   }
 
   renderAttributes() {
     // Make sure there is an entry with attributes to render
     if (this.props.entry) {
-      const { entry } = this.props;
-    //  console.log('ENTRY', entry);
+      const { attributes, entry, mode, model } = this.props;
 
       const attributeList = Object.keys(entry).map((key) => {
-        if (typeof entry[key] === 'boolean') {
-          return (
-            <BooleanField
-              key={`${key}${entry.id}`}
-              mode={this.props.mode}
-              title={entry[key].title}
-              value={entry[key].value}
-            />
-          );
-        } else if (typeof entry[key] === 'string') {
-          return (
-            <TextField
-              key={`${key}${entry.id}`}
-              title={key}
-              mode={this.props.mode}
-              value={entry[key]}
-            />
-          );
-        } else if (typeof entry[key] === 'number') {
-          return (
-            <NumberField
-              key={`${key}${entry.id}`}
-              title={key}
-              mode={this.props.mode}
-              value={entry[key]}
-            />
-          );
-        } else if (typeof entry[key] === 'object') {
-          return (
-            <SelectField
-              key={`${key}${entry.id}`}
-              title={key}
-              mode={this.props.mode}
-              value={entry[key]}
-            />
-          );
+        if (key !== 'id' && key !== 'created_at' && key !== 'updated_at') {
+          if (attributes[key].type === 'boolean') {
+            return (
+              <BooleanField
+                url={`${model}/${entry.id}`}
+                key={`${key}${entry.id}`}
+                mode={mode}
+                title={attributes[key].title}
+                value={entry[key].value}
+              />
+            );
+          } else if (attributes[key].type === 'string') {
+            return (
+              <StringField
+                key={`${key}${entry.id}`}
+                title={attributes[key].title}
+                mode={mode}
+                value={entry[key]}
+                update={this.update}
+              />
+            );
+          } else if (attributes[key].type === 'text') {
+            return (
+              <TextField
+                key={`${key}${entry.id}`}
+                title={attributes[key].title}
+                mode={mode}
+                value={entry[key]}
+                update={this.update}
+              />
+            );
+          } else if (attributes[key].type === 'number') {
+            return (
+              <NumberField
+                key={`${key}${entry.id}`}
+                title={attributes[key].title}
+                mode={mode}
+                value={entry[key]}
+                update={this.update}
+              />
+            );
+          } else if (attributes[key].type === 'object') {
+            return (
+              <SelectField
+                key={`${key}${entry.id}`}
+                title={attributes[key].title}
+                mode={mode}
+                value={entry[key]}
+                update={this.update}
+              />
+            );
+          }
+          return null;
         }
       });
       return attributeList;
@@ -106,39 +153,66 @@ class View extends Component {
     return null;
   }
 
+  renderButtons() {
+    const { updated } = this.state;
+    return (
+      <li className="list-group-item clearfix">
+        <button
+          className="btn btn-danger pull-right"
+          onClick={this.delete}
+        >
+          Delete
+        </button>
+        {updated &&
+          <button
+            className="btn btn-primary pull-right"
+            onClick={this.onUpdateClick}
+          >
+            Update
+          </button>
+        }
+      </li>
+    );
+  }
+
   // Render method
   render() {
-    const {
-      mode,
-    } = this.props;
+    const { entry } = this.props;
 
     return (
       <ul id="field" className="list-group">
         <li className="list-group-item">
-          <h3 className="list-group-item-heading text-center">{this.props.entry ? this.props.entry.title : 'Title'}</h3>
+          <h3 className="list-group-item-heading text-center">{entry ? entry.title : 'Title'}</h3>
         </li>
         {this.renderAttributes()}
+        {this.renderButtons()}
       </ul>
     );
   }
 }
 
 View.propTypes = {
+  attributes: React.PropTypes.object,
   setMode: React.PropTypes.func,
   entry: React.PropTypes.object,
   mode: React.PropTypes.string,
+  model: React.PropTypes.string,
 };
 
 function mapStatetoProps(state) {
-  const { models, model } = state.reducers;
-  const selected = state.reducers.entry;
+  const { models, selectedModel, selectedEntry } = state.reducer;
+  const selected = selectedEntry;
+  const model = selectedModel;
   let entry = {};
 
-  if (selected !== -1 && models[model].entries) {
-    entry = models[model].entries[selected];
+  if (selectedEntry !== 0 && !models[selectedModel].isFetching) {
+    entry = models[selectedModel].entries[selectedEntry];
+    const attributes = toObj(models[selectedModel].attributes, 'tag');
     return {
+      attributes,
       selected,
       entry,
+      model,
     };
   }
   return {
@@ -147,7 +221,7 @@ function mapStatetoProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setMode }, dispatch);
+  return bindActionCreators({ setMode, setupUpdate, requestDelete }, dispatch);
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(View);

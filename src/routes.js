@@ -23,7 +23,7 @@ export default (store) => (
     <IndexRoute component={Index} />
     <Route path=":model" component={Index} />
     <Route path=":model/new" component={New} />
-    <Route path=":model/:entry" component={View} />
     <Route path=":model/:entry/edit" component={View} />
+    <Route path=":model/:entry" component={View} />
   </Route>
 );

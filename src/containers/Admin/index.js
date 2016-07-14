@@ -6,7 +6,7 @@ import 'bootstrap-loader';
 import 'font-awesome-sass-loader';
 
 // User imports
-import { requestModels } from '../../actions/';
+import { requestModels, setBaseURL, setAdminURL } from '../../actions/';
 // import { getModels, setModel, getEntries } from '../../actions/index';
 import { makeURL } from '../../helpers/functions';
 
@@ -29,27 +29,12 @@ class Admin extends Component {
     };
   }
 
-  componentWillMount() {
-    // url contains a model title
-    // this.props.requestModels().then((data) =>{
-    //   if (this.props.params.model && !data.error) {
-    //     this.props.setModel(makeURL(this.props.params.model));
-    //   }
-    // })
-
-    // url contains an entry id
-    if (this.props.params.entry) {
-      // this.props.getEntries();
-      // Select a model
-    }
-  }
-
   componentWillReceiveProps() {
   }
 
   // Render method
   render() {
-    console.log();
+    console.log(this.props);
     return (
       <div className="container-fluid">
         <div className="row">
@@ -68,6 +53,9 @@ class Admin extends Component {
 Admin.propTypes = {
   model: React.PropTypes.string,
   requestModels: React.PropTypes.func,
+  setBaseURL: React.PropTypes.func,
+  setAdminURL: React.PropTypes.func,
+  children: React.PropTypes.object,
   // getEntries: React.PropTypes.func,
   // setModel: React.PropTypes.func,
   params: React.PropTypes.object,
@@ -84,6 +72,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       requestModels,
+      setBaseURL,
+      setAdminURL,
     }, dispatch);
 }
 

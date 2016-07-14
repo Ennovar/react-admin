@@ -1,5 +1,6 @@
 // Libary imports
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 
 // User imports
 import './style.scss';
@@ -21,26 +22,22 @@ class BooleanField extends Component {
   }
 
   componentWillMount() {
-    if (this.props.mode === 'new') {
+    const { mode } = this.props;
+    if (mode === 'new') {
       this.setState({ mode: 'new' });
     } else {
       this.setState({ mode: 'view' });
     }
 
+    // If there is a value, set value equal to it
     if (this.props.value) {
-      this.setState({ value: this.props.value });
+      this.setState({ original: this.props.value });
     }
-    // Set the value if in edit or view mode
   }
 
   onClickEdit() {
-    if (this.state.mode === 'view') {
-      this.setState({ mode: 'edit' });
-    } else if (this.state.mode === 'edit') {
-      this.setState({ mode: 'view' });
-    } else {
-      // Do nothing
-    }
+    const { mode } = this.state;
+    this.setState({ mode: mode === 'view' ? 'edit' : 'view' });
   }
 
   // User selects false

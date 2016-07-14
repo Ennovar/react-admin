@@ -8,7 +8,8 @@ class TextField extends Component {
     super(props);
 
     this.state = {
-      value: '',
+      original: '',
+      value: null,
       mode: '',
     };
 
@@ -17,38 +18,39 @@ class TextField extends Component {
   }
 
   componentWillMount() {
-    if (this.props.mode === 'new') {
-      this.setState({ mode: this.props.mode });
-    } else {
-      this.setState({ mode: 'view' });
-    }
+    const { mode, value } = this.props;
+    this.setState({ mode: mode === 'new' ? mode : 'view' });
 
-    if (this.props.value) {
-      this.setState({ value: this.props.value });
+    if (value) {
+      this.setState({ original: value });
     }
   }
 
   onEditClick() {
-    if (this.state.mode === 'edit') {
-      this.setState({ mode: 'view' });
-    } else if (this.state.mode === 'view') {
-      this.setState({ mode: 'edit' });
-    } else {
-      // Do nothing
-    }
+    const { mode } = this.state;
+    this.setState({ mode: mode === 'view' ? 'edit' : 'view' });
   }
 
   // Change text value
   changeText(e) {
+    const { update, title } = this.props;
+    const { original } = this.state;
+    const { value } = e.target;
+
     this.setState({
-      value: e.target.value,
+      value,
     });
+    if (original !== '') {
+      update(original, value, title);
+    } else {
+      update(value, title);
+    }
   }
 
   // Render method
   render() {
     const { title } = this.props;
-    const { mode, value } = this.state;
+    const { mode, value, original } = this.state;
     let content;
     let icon;
 
@@ -57,15 +59,15 @@ class TextField extends Component {
     // else: show nothing
     if (mode === 'edit' || mode === 'new') {
       content = (
-        <input
+        <textarea
           className="form-control"
           onChange={this.changeText}
-          value={this.state.value}
+          value={value !== null ? value : original}
         />
       );
       icon = 'check';
     } else if (mode === 'view') {
-      content = (<p className="list-group-item-text">{value}</p>);
+      content = (<p className="list-group-item-text">{value !== null ? value : original}</p>);
       icon = 'pencil';
     } else {
       content = null;
@@ -98,6 +100,7 @@ TextField.propTypes = {
   mode: React.PropTypes.string,
   value: React.PropTypes.string,
   changeMode: React.PropTypes.func,
+  update: React.PropTypes.func,
 };
 
 export default TextField;

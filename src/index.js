@@ -4,19 +4,19 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
-import { reducers } from './reducers';
+import reducer from './reducers';
 import ReduxPromise from 'redux-promise';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import AdminActions from './actions';
+import { setAdminURL, setBaseURl } from './actions';
 import { logger } from './middleware';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import { syncHistory, syncParams, routeParamsReducer } from 'react-router-redux-params'
 // AdminActions.baseUrl = 'http://reactadmintestapi.herokuapp.com/api';
 
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
   routing: routeParamsReducer,
-  reducers,
+  reducer,
 });
 
 // Sync dispatched route actions to the history
@@ -26,7 +26,7 @@ const createStoreWithMiddleware = applyMiddleware(
 
 // const store = createStoreWithMiddleware(reducer);
 const store = createStore(
-  reducer,
+  rootReducer,
   compose(
     applyMiddleware(
       ReduxPromise,

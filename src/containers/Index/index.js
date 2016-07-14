@@ -74,12 +74,15 @@ Index.propTypes = {
 };
 
 function mapStatetoProps(state) {
-  return {
-    model: state.reducers.model,
-    entries: state.reducers.models[state.reducers.model].entries,
-    title: state.reducers.models[state.reducers.model].title,
-    tag: state.reducers.models[state.reducers.model].tag,
-  };
+  if (state.reducer.selectedModel !== '') {
+    return {
+      model: state.reducer.model,
+      entries: state.reducer.models[state.reducer.selectedModel].entries,
+      title: state.reducer.models[state.reducer.selectedModel].title,
+      tag: state.reducer.models[state.reducer.selectedModel].tag,
+    };
+  }
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {

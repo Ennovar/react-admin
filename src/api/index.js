@@ -10,9 +10,9 @@ import {
  *
  * @return {type}  description
  */
-export function getModels(url) {
+export function receiveModels(url) {
   const payload = axios.get(url);
-  
+
   return {
     type: RECEIVE_MODELS,
     payload,
@@ -26,7 +26,7 @@ export function getModels(url) {
  * @param  {int} modelIndex index of model to GET index of
  * @return {promise}            promise
  */
-export function getEntries(url, model) {
+export function receiveEntries(url, model) {
   const payload = axios.get(url);
 
   return {
@@ -58,8 +58,13 @@ export function getShow(modelIndex, id) {
  * @param  {type} newModel   the new model to be created, including attributes
  * @return {promise}            promise
  */
-export function postCreate(modelIndex, newModel) {
+export function postCreate(data, url) {
+  const request = axios.post(url, data);
 
+  return {
+    type: 'POST_CREATE',
+    payload: request,
+  };
 }
 
 /**
@@ -71,8 +76,13 @@ export function postCreate(modelIndex, newModel) {
  * @param  {type} id         id of model to PUT
  * @return {promise}            promise
  */
-export function putUpdate(modelIndex, updatedModel, id) {
+export function putUpdate(data, url) {
+  const request = axios.put(url, data);
 
+  return {
+    type: 'MAKE_UPDATE',
+    payload: request,
+  };
 }
 
 /**
@@ -83,6 +93,11 @@ export function putUpdate(modelIndex, updatedModel, id) {
  * @param  {type} id         id of model to DELETE
  * @return {promise}            promise
  */
-export function deleteDelete(modelIndex, id) {
+export function deleteDelete(url) {
+  const request = axios.delete(url);
 
+  return {
+    type: 'DELETE_DELETE',
+    payload: request,
+  };
 }

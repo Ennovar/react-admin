@@ -1,25 +1,20 @@
-// Library imports
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import './style.scss';
 
-// User imports
-//  - styles
-import './style.css';
-
-
-class NumberField extends Component {
+class StringField extends Component {
 
   // Constructor
   constructor(props) {
     super(props);
+
     this.state = {
       original: '',
-      value: -1,
+      value: null,
       mode: '',
     };
 
+    this.changeText = this.changeText.bind(this);
     this.onEditClick = this.onEditClick.bind(this);
-    this.onNumberChange = this.onNumberChange.bind(this);
   }
 
   componentWillMount() {
@@ -31,37 +26,31 @@ class NumberField extends Component {
     }
   }
 
-  onNumberChange(e) {
-    const { value } = e.target;
-    const { update } = this.props;
-    const { original } = this.state;
-
-    // if: Make sure that the value is a number
-    // else if: Make sure that the user can clear out the input
-    if (!isNaN(parseFloat(value)) && isFinite(value) && value >= 0) {
-      this.setState({ value: Number(value) });
-      update(original, Number(value));
-    } else if (value === '') {
-      this.setState({ value });
-    } else {
-      // Do nothing
-    }
-  }
-
   onEditClick() {
     const { mode } = this.state;
     this.setState({ mode: mode === 'view' ? 'edit' : 'view' });
   }
 
+  // Change text value
+  changeText(e) {
+    const { update, title } = this.props;
+    const { original } = this.state;
+    const { value } = e.target;
+
+    this.setState({
+      value,
+    });
+    if (original !== '') {
+      update(original, value, title);
+    } else {
+      update(value, title);
+    }
+  }
+
   // Render method
   render() {
-    const {
-      title,
-    } = this.props;
-    const {
-      mode, value,
-      original,
-    } = this.state;
+    const { title } = this.props;
+    const { mode, value, original } = this.state;
     let content;
     let icon;
 
@@ -72,16 +61,17 @@ class NumberField extends Component {
       content = (
         <input
           className="form-control"
-          onChange={this.onNumberChange}
-          value={value !== -1 ? value : original}
+          onChange={this.changeText}
+          value={value !== null ? value : original}
         />
       );
       icon = 'check';
     } else if (mode === 'view') {
-      content = (<p className="list-group-item-text">{value !== -1 ? value : original}</p>);
+      content = (<p className="list-group-item-text">{value !== null ? value : original}</p>);
       icon = 'pencil';
     } else {
       content = null;
+      icon = null;
     }
 
     return (
@@ -105,11 +95,12 @@ class NumberField extends Component {
   }
 }
 
-NumberField.propTypes = {
-  mode: React.PropTypes.string,
+StringField.propTypes = {
   title: React.PropTypes.string,
+  mode: React.PropTypes.string,
+  value: React.PropTypes.string,
+  changeMode: React.PropTypes.func,
   update: React.PropTypes.func,
-  value: React.PropTypes.number,
 };
 
-export default NumberField;
+export default StringField;
